@@ -1,22 +1,37 @@
-import { IconBrandInstagram, IconMail } from "@tabler/icons-react";
+import {
+  IconBrandGithub,
+  IconBrandInstagram,
+  IconMail,
+} from "@tabler/icons-react";
 import React from "react";
 
 const FotBar = () => {
   const Tahun = new Date().getFullYear();
-  return (
-    <div className="border-t border-black max-w-7xl mx-auto p-6 text-base bottom-0">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <a href="https://www.instagram.com/rizkyever/" target="_blank">
-            <IconBrandInstagram />
-          </a>
 
-          <a href="mailto:rochmadrizkyputra@gmail.com" target="_blank">
-            <IconMail />
-          </a>
+  const icons = [
+    {
+      icon: <IconBrandInstagram className="stroke-1" />,
+      link: "https://www.instagram.com/rizkyever/",
+    },
+    {
+      icon: <IconMail className="stroke-1" />,
+      link: "mailto:rochmadrizkyputra@gmail.com",
+    },
+  ];
+
+  return (
+    <div className="border-t border-black max-w-7xl mx-auto p-4 text-base bottom-0">
+      <div className="flex flex-col md:flex-row items-center  justify-center md:justify-between gap-y-1 px-4">
+        <div className="flex items-center gap-2">
+          {icons.map((barang, urutan) => (
+            <a key={urutan} href={barang.link} target="_blank">
+              {barang.icon}
+            </a>
+          ))}
         </div>
+
         <h1 className="text-right">
-          Copyright &copy;{Tahun} All rights reserved.
+          Copyright &copy; {Tahun} All rights reserved.
         </h1>
       </div>
     </div>
