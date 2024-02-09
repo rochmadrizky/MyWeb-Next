@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import MenuNavbar from "./MenuNavbar";
+import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 
 const Navbar = () => {
