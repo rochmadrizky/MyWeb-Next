@@ -16,25 +16,27 @@ const Navbar = () => {
     mengaturMenuTerbuka(false);
   };
 
-  const sidebarClasses = `fixed flex flex-col top-0 left-0 h-full w-64 md:w-72 bg-gray-100 px-4 transform transition-transform duration-300 ease-in-out z-50${
+  const sidebarClasses = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-100 px-4 transform transition-transform duration-300 ease-in-out z-50${
     bukaMenu ? " translate-x-0" : " -translate-x-full"
   }`;
 
   return (
-    <header className="bg-gray-300 p-4 sticky top-0 left-0 right-0 z-10">
-      <div className="container lg:px-16 mx-auto flex justify-between items-center">
-        <div className="font-bold">
-          <Link href="/">Logo</Link>
-        </div>
-
+    <header className="border-b border-black max-w-7xl mx-auto p-6 sticky top-0 left-0 right-0 z-10">
+      <div className="lg:px-16 mx-auto flex justify-center items-center">
         <div className="hidden md:block">
           <MenuNavbar pilihMenu={pilihMenu} />
         </div>
 
         <div className="block md:hidden">
-          <button onClick={klikMenuIcon}>
-            {bukaMenu ? <IconX /> : <IconMenu2 />}
-          </button>
+          <div className="flex items-center justify-center gap-4">
+            <h1>Hai</h1>
+            <div>
+              <Link href="/">Logo</Link>
+            </div>
+            <button onClick={klikMenuIcon}>
+              {bukaMenu ? <IconX /> : <IconMenu2 />}
+            </button>
+          </div>
         </div>
 
         {bukaMenu && (

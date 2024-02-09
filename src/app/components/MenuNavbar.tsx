@@ -13,18 +13,18 @@ const MenuNavbar = ({ pilihMenu }: MenuNavProps) => {
     <>
       <ul className="flex flex-col md:flex-row md:gap-2">
         <li className="mb-4 md:mb-0">
-          <Link href="/todos" onClick={mengaturMenuKlik}>
-            Todo
+          <Link href="/blogs" onClick={mengaturMenuKlik}>
+            BLOGS
+          </Link>
+        </li>
+        <li className="mb-4 md:mb-0 hidden md:block">
+          <Link href="/" onClick={mengaturMenuKlik}>
+            LOGO IMG
           </Link>
         </li>
         <li className="mb-4 md:mb-0">
-          <Link href="/login" onClick={mengaturMenuKlik}>
-            Login
-          </Link>
-        </li>
-        <li className="mb-4 md:mb-0">
-          <Link href="/todolist" onClick={mengaturMenuKlik}>
-            TodoList
+          <Link href="/abouts" onClick={mengaturMenuKlik}>
+            ABOUTS
           </Link>
         </li>
       </ul>
