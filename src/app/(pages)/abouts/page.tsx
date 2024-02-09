@@ -1,5 +1,5 @@
 import React from "react";
-import AboutContent from "./AboutContent";
+import AboutContent from "../../components/abouts/AboutContent";
 
 const Page = () => {
   return (

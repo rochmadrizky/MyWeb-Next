@@ -21,7 +21,7 @@ const Navbar = () => {
   }`;
 
   return (
-    <header className="border-b border-black max-w-7xl mx-auto p-6 sticky top-0 left-0 right-0 z-10">
+    <header className="border-b border-black bg-gray-200 bg-opacity-80 max-w-7xl mx-auto p-6 sticky top-0 left-0 right-0 z-10">
       <div className="lg:px-16 mx-auto flex justify-center items-center">
         <div className="hidden md:block">
           <MenuNavbar pilihMenu={pilihMenu} />

@@ -1,6 +1,5 @@
 import React from "react";
-
-import BlogContent from "./BlogContent";
+import BlogContent from "../../components/blogs/BlogContent";
 
 const Page = () => {
   return (
