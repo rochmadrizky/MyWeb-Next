@@ -9,7 +9,13 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        prefix : "Poppins, sans-serif",
+        title : "Nunito, sans-serif",
+        description : "Catamaran, sans-serif"
+      }
+    },
   },
   plugins: [],
 }

@@ -30,7 +30,7 @@ const FotBar = () => {
           ))}
         </div>
 
-        <h1 className="text-right">
+        <h1 className="text-center md:text-right font-prefix text-sm md:text-lg">
           Copyright &copy; {Tahun} All rights reserved.
         </h1>
       </div>

@@ -12,7 +12,7 @@ const MenuNavbar = ({ pilihMenu }: MenuNavProps) => {
   return (
     <>
       <ul className="flex flex-col md:flex-row md:gap-4">
-        <li className="mb-4 md:mb-0">
+        <li className="mb-4 md:mb-0 font-prefix text-lg">
           <Link href="/blogs" onClick={mengaturMenuKlik}>
             BLOGS
           </Link>
@@ -22,7 +22,7 @@ const MenuNavbar = ({ pilihMenu }: MenuNavProps) => {
             LOGO IMG
           </Link>
         </li>
-        <li className="mb-4 md:mb-0">
+        <li className="mb-4 md:mb-0 font-prefix text-lg">
           <Link href="/abouts" onClick={mengaturMenuKlik}>
             ABOUTS
           </Link>

@@ -11,9 +11,11 @@ const HomeContent = () => {
         />
 
         <div className="text-center">
-          <p className="text-lg">Hi, what's up everyone, I'm</p>
-          <h1 className="text-3xl font-bold">Rizky Putra</h1>
-          <p className="text-xl">Front-End Developer</p>
+          <p className="text-3xl font-description">
+            Hi, what's up everyone, I'm
+          </p>
+          <h1 className="text-5xl font-title">Rizky Putra</h1>
+          <p className="text-xl font-prefix">Front-End Developer</p>
         </div>
       </div>
     </div>
