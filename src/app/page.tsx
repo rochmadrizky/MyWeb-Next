@@ -8,9 +8,8 @@ const Page = () => {
         className="h-[484px] flex items-center justify-center"
         style={{ backgroundImage: `url('/background/topography.svg')` }}
       >
-        {/* Konten di dalamnya */}
+        <HomeContent />
       </div>
-      <HomeContent />
     </div>
   );
 };
