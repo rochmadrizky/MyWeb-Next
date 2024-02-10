@@ -1,12 +1,18 @@
 import React from "react";
 import HomeContent from "./components/home/HomeContent";
 
-const page = () => {
+const Page = () => {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
+      <div
+        className="h-[484px] flex items-center justify-center"
+        style={{ backgroundImage: `url('/background/topography.svg')` }}
+      >
+        {/* Konten di dalamnya */}
+      </div>
       <HomeContent />
     </div>
   );
 };
 
-export default page;
+export default Page;

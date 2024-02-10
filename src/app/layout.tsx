@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-gray-200">
+      <body className="bg-gray-300">
         <Navbar />
         <div className="min-h-screen">{children}</div>
         <FotBar />
