@@ -3,7 +3,13 @@ import AboutContent from "../../components/abouts/AboutContent";
 
 const Page = () => {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div>
+      <div
+        className="h-[484px] flex items-center justify-center"
+        style={{ backgroundImage: `url('/background/topography.svg')` }}
+      >
+        {/* Konten di dalamnya */}
+      </div>
       <AboutContent />
     </div>
   );
