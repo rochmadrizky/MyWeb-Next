@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import ButtonBahasa from "./ButtonBahasa";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
@@ -24,12 +25,17 @@ const Navbar = () => {
     <header className="border-b border-black bg-gray-200 p-5 sticky top-0 left-0 right-0 z-10">
       <div className="lg:px-16 mx-auto flex justify-center items-center">
         <div className="hidden md:block">
-          <MenuNavbar pilihMenu={pilihMenu} />
+          <div className="flex items-center justify-center gap-[18px]">
+            <ButtonBahasa />
+            <MenuNavbar pilihMenu={pilihMenu} />
+          </div>
         </div>
 
         <div className="block md:hidden">
           <div className="flex items-center justify-center gap-6">
-            <h1>Hai</h1>
+            <div>
+              <ButtonBahasa />
+            </div>
             <div>
               <Link href="/" className="font-opsi text-4xl">
                 Rizky Putra
