@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import ButtonBahasa from "./ButtonBahasa";
+import DarkMode from "./DarkMode";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
@@ -28,6 +29,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center gap-[18px]">
             <ButtonBahasa />
             <MenuNavbar pilihMenu={pilihMenu} />
+            <DarkMode />
           </div>
         </div>
 
