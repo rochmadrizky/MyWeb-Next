@@ -4,8 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-import ButtonBahasa from "./ButtonBahasa";
-import DarkMode from "./DarkMode";
+import MenuModal from "./MenuModal";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
@@ -23,20 +22,16 @@ const Navbar = () => {
   }`;
 
   return (
-    <header className="border-b border-black bg-gray-200 p-5 sticky top-0 left-0 right-0 z-10">
+    <header className="border-b border-black bg-gray-200 p-4 sticky top-0 left-0 right-0 z-10">
       <div className="lg:px-16 mx-auto flex justify-center items-center">
         <div className="hidden md:block">
-          <div className="flex items-center justify-center gap-[18px]">
-            <ButtonBahasa />
-            <MenuNavbar pilihMenu={pilihMenu} />
-            <DarkMode />
-          </div>
+          <MenuNavbar pilihMenu={pilihMenu} />
         </div>
 
         <div className="block md:hidden">
           <div className="flex items-center justify-center gap-6">
             <div>
-              <ButtonBahasa />
+              <MenuModal />
             </div>
             <div>
               <Link href="/" className="font-opsi text-4xl">

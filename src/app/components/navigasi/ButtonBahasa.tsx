@@ -21,10 +21,19 @@ const ButtonBahasa = () => {
     }
   };
 
+  const handleKeyPress = (klik: KeyboardEvent) => {
+    if (klik.key === "Escape") {
+      setDropdownTampil(false);
+    }
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", menutupDariLuar);
+    document.addEventListener("keydown", handleKeyPress);
+
     return () => {
       document.removeEventListener("mousedown", menutupDariLuar);
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
 
