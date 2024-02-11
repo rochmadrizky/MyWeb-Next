@@ -13,7 +13,8 @@ module.exports = {
       fontFamily: {
         prefix : "Poppins, sans-serif",
         title : "Nunito, sans-serif",
-        description : "Catamaran, sans-serif"
+        description : "Catamaran, sans-serif",
+        opsi: "Mrs Saint Delafield"
       }
     },
   },

@@ -11,15 +11,19 @@ const MenuNavbar = ({ pilihMenu }: MenuNavProps) => {
   };
   return (
     <>
-      <ul className="flex flex-col md:flex-row md:gap-4">
+      <ul className="flex items-center flex-col md:flex-row md:gap-[18px]">
         <li className="mb-4 md:mb-0 font-prefix text-lg">
           <Link href="/blogs" onClick={mengaturMenuKlik}>
             BLOGS
           </Link>
         </li>
         <li className="mb-4 md:mb-0 hidden md:block">
-          <Link href="/" onClick={mengaturMenuKlik}>
-            LOGO IMG
+          <Link
+            href="/"
+            onClick={mengaturMenuKlik}
+            className="font-opsi text-4xl"
+          >
+            Rizky Putra
           </Link>
         </li>
         <li className="mb-4 md:mb-0 font-prefix text-lg">

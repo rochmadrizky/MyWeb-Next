@@ -21,17 +21,19 @@ const Navbar = () => {
   }`;
 
   return (
-    <header className="border-b border-black bg-gray-200  p-6 sticky top-0 left-0 right-0 z-10">
+    <header className="border-b border-black bg-gray-200 p-5 sticky top-0 left-0 right-0 z-10">
       <div className="lg:px-16 mx-auto flex justify-center items-center">
         <div className="hidden md:block">
           <MenuNavbar pilihMenu={pilihMenu} />
         </div>
 
         <div className="block md:hidden">
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-6">
             <h1>Hai</h1>
             <div>
-              <Link href="/">Logo</Link>
+              <Link href="/" className="font-opsi text-4xl">
+                Rizky Putra
+              </Link>
             </div>
             <button onClick={klikMenuIcon}>
               {bukaMenu ? <IconX /> : <IconMenu2 />}
