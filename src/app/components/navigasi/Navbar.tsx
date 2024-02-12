@@ -34,7 +34,7 @@ const Navbar = () => {
     };
   }, [bukaMenu]);
 
-  const bukaSidbar = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-100 px-4 transform transition-transform duration-300 ease-in-out z-50${
+  const bukaSidbar = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-200 px-4 transform transition-transform duration-300 ease-in-out z-50 border-r border-black${
     bukaMenu ? " translate-x-0" : " -translate-x-full"
   }`;
 
@@ -65,7 +65,7 @@ const Navbar = () => {
 
         {bukaMenu && (
           <div
-            className="fixed inset-0 bg-black opacity-10 z-40"
+            className="fixed inset-0 bg-black opacity-10 z-40 "
             onClick={klikMenuIcon}
           />
         )}

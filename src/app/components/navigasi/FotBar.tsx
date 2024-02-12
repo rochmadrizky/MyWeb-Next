@@ -1,8 +1,5 @@
-import {
-  IconBrandGithub,
-  IconBrandInstagram,
-  IconMail,
-} from "@tabler/icons-react";
+import { IconBrandInstagram, IconMail } from "@tabler/icons-react";
+import Link from "next/link";
 import React from "react";
 
 const FotBar = () => {
@@ -30,9 +27,15 @@ const FotBar = () => {
           ))}
         </div>
 
-        <h1 className="text-center md:text-right font-prefix text-sm md:text-lg">
-          Copyright &copy; {Tahun} All rights reserved.
-        </h1>
+        <div className="flex flex-col items-center justify-center gap-y-2">
+          <h1 className="text-center md:text-right font-prefix text-sm md:text-lg">
+            Copyright &copy; {Tahun} All rights reserved.
+          </h1>
+
+          <Link href="/" className="font-opsi text-3xl md:text-4xl">
+            Rizky Putra
+          </Link>
+        </div>
       </div>
     </div>
   );
