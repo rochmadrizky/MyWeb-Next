@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import DarkMode from "./DarkMode";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
@@ -52,10 +53,11 @@ const Navbar = () => {
                 Rizky Putra
               </Link>
             </div>
+
             <button
               onClick={klikMenuIcon}
               className={`transform ${
-                putarIcon ? "rotate-90" : ""
+                putarIcon ? "rotate-180" : ""
               } transition duration-300`}
             >
               {bukaMenu ? <IconX /> : <IconMenu2 />}
@@ -65,7 +67,7 @@ const Navbar = () => {
 
         {bukaMenu && (
           <div
-            className="fixed inset-0 bg-black opacity-10 z-40 "
+            className="fixed inset-0 bg-black opacity-10 z-40  "
             onClick={klikMenuIcon}
           />
         )}
