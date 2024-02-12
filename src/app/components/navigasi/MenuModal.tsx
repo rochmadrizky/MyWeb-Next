@@ -4,52 +4,52 @@ import ButtonBahasa from "./ButtonBahasa";
 import DarkMode from "./DarkMode";
 
 const MenuModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const modalRef = useRef<HTMLDivElement>(null);
+  const [membuka, mengaturMembuka] = useState(false);
+  const modal = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: { target: any }) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setIsOpen(false);
+    function klikLuar(klik: { target: any }) {
+      if (modal.current && !modal.current.contains(klik.target)) {
+        mengaturMembuka(false);
       }
     }
 
-    function handleEscKeyPress(event: KeyboardEvent) {
+    function klikESC(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        mengaturMembuka(false);
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscKeyPress);
+    document.addEventListener("mousedown", klikLuar);
+    document.addEventListener("keydown", klikESC);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscKeyPress);
+      document.removeEventListener("mousedown", klikLuar);
+      document.removeEventListener("keydown", klikESC);
     };
-  }, [modalRef]);
+  }, [modal]);
 
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
+  const menutupModal = () => {
+    mengaturMembuka(!membuka);
   };
 
   return (
     <div>
       <button
-        onClick={toggleModal}
+        onClick={menutupModal}
         className="flex items-center justify-between"
       >
         <IconSettings className="stroke-1" />
       </button>
 
-      {isOpen && (
+      {membuka && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-6">
           <div
-            ref={modalRef}
+            ref={modal}
             className="bg-gray-200  p-6 rounded-lg shadow-md max-w-md relative"
           >
             <button
-              onClick={toggleModal}
+              onClick={menutupModal}
               className="absolute top-0 right-0 p-2"
             >
               <IconX />

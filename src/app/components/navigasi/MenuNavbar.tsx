@@ -19,19 +19,13 @@ const MenuNavbar = ({ pilihMenu }: MenuNavProps) => {
           </Link>
         </li>
         <li className="mb-4 md:mb-0 hidden md:block">
-          <div className="flex flex-col items-center justify-center">
-            <Link
-              href="/"
-              onClick={mengaturMenuKlik}
-              className="font-opsi text-4xl"
-            >
-              Rizky Putra
-            </Link>
-
-            <div>
-              <MenuModal />
-            </div>
-          </div>
+          <Link
+            href="/"
+            onClick={mengaturMenuKlik}
+            className="font-opsi text-4xl"
+          >
+            Rizky Putra
+          </Link>
         </li>
         <li className="mb-4 md:mb-0 font-prefix text-lg">
           <Link href="/abouts" onClick={mengaturMenuKlik}>
