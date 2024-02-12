@@ -1,23 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-import MenuModal from "./MenuModal";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
+  const [putarIcon, mengaturPutarIcon] = useState(false);
 
   const klikMenuIcon = () => {
     mengaturMenuTerbuka(!bukaMenu);
+    mengaturPutarIcon(!putarIcon);
   };
 
   const pilihMenu = () => {
     mengaturMenuTerbuka(false);
+    mengaturPutarIcon(false);
   };
 
-  const sidebarClasses = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-100 px-4 transform transition-transform duration-300 ease-in-out z-50${
+  useEffect(() => {
+    const klikEsc = (klik: { keyCode: number }) => {
+      if (klik.keyCode === 27 && bukaMenu) {
+        mengaturMenuTerbuka(false);
+        mengaturPutarIcon(false);
+      }
+    };
+
+    document.addEventListener("keydown", klikEsc);
+
+    return () => {
+      document.removeEventListener("keydown", klikEsc);
+    };
+  }, [bukaMenu]);
+
+  const bukaSidbar = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-100 px-4 transform transition-transform duration-300 ease-in-out z-50${
     bukaMenu ? " translate-x-0" : " -translate-x-full"
   }`;
 
@@ -35,7 +52,12 @@ const Navbar = () => {
                 Rizky Putra
               </Link>
             </div>
-            <button onClick={klikMenuIcon}>
+            <button
+              onClick={klikMenuIcon}
+              className={`transform ${
+                putarIcon ? "rotate-90" : ""
+              } transition duration-300`}
+            >
               {bukaMenu ? <IconX /> : <IconMenu2 />}
             </button>
           </div>
@@ -48,7 +70,7 @@ const Navbar = () => {
           />
         )}
 
-        <div className={sidebarClasses}>
+        <div className={bukaSidbar}>
           <div className="min-h-screen flex flex-col items-center justify-center">
             <MenuNavbar pilihMenu={pilihMenu} />
           </div>
