@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-import DarkMode from "./DarkMode";
+import SearchButton from "./SearchButton";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
@@ -48,6 +48,8 @@ const Navbar = () => {
 
         <div className="block md:hidden">
           <div className="flex items-center justify-center gap-6">
+            <SearchButton />
+
             <div>
               <Link href="/" className="font-opsi text-4xl">
                 Rizky Putra
