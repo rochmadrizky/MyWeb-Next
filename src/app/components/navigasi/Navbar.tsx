@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <header className="border-b border-black bg-gray-200 p-4 sticky top-0 left-0 right-0 z-10">
-      <div className="lg:px-16 mx-auto flex justify-center items-center">
+      <div className="max-w-7xl relative mx-auto flex justify-center items-center">
         <div className="hidden md:block">
           <MenuNavbar pilihMenu={pilihMenu} />
         </div>
@@ -78,6 +78,10 @@ const Navbar = () => {
           <div className="min-h-screen flex flex-col items-center justify-center">
             <MenuNavbar pilihMenu={pilihMenu} />
           </div>
+        </div>
+
+        <div className="absolute right-0 hidden md:block">
+          <SearchButton />
         </div>
       </div>
     </header>
