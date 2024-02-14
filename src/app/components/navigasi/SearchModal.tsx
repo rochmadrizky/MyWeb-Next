@@ -9,6 +9,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   const [search, mengaturSearch] = useState("");
   const [opsiLengkap, mengaturOpsiLengkap] = useState<string[]>([]);
   const [opsiIndex, mengaturOpsiIndex] = useState<number>(-1);
+
   const searchHalaman: Record<string, string> = {
     abouts: "/abouts",
     blogs: "/blogs",
@@ -21,14 +22,14 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     const klikLuar = (klik: MouseEvent) => {
       if (modal.current && !modal.current.contains(klik.target as Node)) {
         menutup();
-        mengulangSearch(); // Reset pencarian saat menutup modal dari luar
+        mengulangSearch();
       }
     };
 
     const klikEscape = (klik: KeyboardEvent) => {
       if (klik.key === "Escape") {
         menutup();
-        mengulangSearch(); // Reset pencarian saat menutup modal dengan tombol Escape
+        mengulangSearch();
       }
     };
 
@@ -71,9 +72,9 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       if (halamanYangDipilih) {
         window.location.href = halamanYangDipilih;
       }
-      mengaturSearch(""); // Kosongkan input setelah memilih
+      mengaturSearch("");
     }
-    mengaturOpsiLengkap([]); // Sembunyikan dropdown setelah pengguna memilih opsi
+    mengaturOpsiLengkap([]);
   };
 
   const menanganiTombol = (e: React.KeyboardEvent) => {
@@ -93,20 +94,20 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       pilihOpsiLengkap(search);
     } else if (e.key === "Escape") {
       menutup();
-      mengulangSearch(); // Reset pencarian saat menekan tombol Escape
+      mengulangSearch();
     }
   };
 
   const menutupModal = () => {
-    mengaturSearch(""); // Reset nilai pencarian
-    mengaturOpsiIndex(-1); // Reset indeks opsi terpilih
-    menutup(); // Panggil fungsi menutup yang diterima dari props
+    mengaturSearch("");
+    mengaturOpsiIndex(-1);
+    menutup();
   };
 
   const mengulangSearch = () => {
-    mengaturSearch(""); // Reset nilai pencarian
-    mengaturOpsiIndex(-1); // Reset indeks opsi terpilih
-    mengaturOpsiLengkap([]); // Menghapus opsi dropdown
+    mengaturSearch("");
+    mengaturOpsiIndex(-1);
+    mengaturOpsiLengkap([]);
   };
 
   return (
