@@ -6,6 +6,8 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   menutup,
 }) => {
   const [search, mengaturSearch] = useState("");
+  const [pesanError, mengaturPesanError] = useState("");
+
   const modal = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,15 +38,26 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   }, [membuka, menutup]);
 
   const handleSearch = () => {
-    console.log("Mencari...", search);
-    mengaturSearch("");
-    menutup();
+    if (search.trim() === "") {
+      mengaturPesanError("Search query cannot be empty");
+    } else {
+      console.log("Mencari...", search);
+      mengaturSearch("");
+      mengaturPesanError("");
+      menutup();
+    }
   };
 
   const klikEnter = (klik: React.KeyboardEvent<HTMLInputElement>) => {
     if (klik.key === "Enter") {
       handleSearch();
     }
+  };
+
+  const mengubahKolomInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    mengaturSearch(e.target.value);
+    // Hapus pesan kesalahan setiap kali pengguna mulai mengetik
+    mengaturPesanError("");
   };
 
   return (
@@ -55,26 +68,32 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     >
       <div
         ref={modal}
-        className="bg-gray-200  p-6 rounded-lg shadow-md max-w-md relative"
+        className="bg-gray-200 p-6 rounded-lg shadow-md max-w-md relative"
       >
         <button onClick={menutup} className="absolute top-0 right-0 p-2">
           <IconX />
         </button>
 
-        <div className="p-4 flex items-center">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => mengaturSearch(e.target.value)}
-            onKeyPress={klikEnter} // Menangani ketika tombol ditekan
-            placeholder="Enter your search query"
-            className="w-full px-3 py-2"
-          />
+        <div className="p-4">
+          <div className="flex items-center">
+            <input
+              type="text"
+              value={search}
+              onChange={mengubahKolomInput} // Menangani perubahan pada input
+              onKeyPress={klikEnter} // Menangani ketika tombol ditekan
+              placeholder="mau cari?"
+              className="w-full px-3 py-2 rounded-l-lg"
+            />
 
-          <button onClick={handleSearch} className="bg-gray-300 px-3 py-2">
-            <IconSearch />
-          </button>
+            <button
+              onClick={handleSearch}
+              className="bg-gray-300 px-3 py-2 rounded-r-lg"
+            >
+              <IconSearch />
+            </button>
+          </div>
         </div>
+        {pesanError && <p className="text-red-500 text-sm">{pesanError}</p>}
       </div>
     </div>
   );
