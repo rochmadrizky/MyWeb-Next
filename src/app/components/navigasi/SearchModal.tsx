@@ -1,5 +1,5 @@
 import { IconSearch, IconX } from "@tabler/icons-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, SetStateAction } from "react";
 import SearchDropdown from "./SearchDropdown";
 
 const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
@@ -7,7 +7,9 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   menutup,
 }) => {
   const [search, mengaturSearch] = useState("");
-  const [opsiLengkap, mengaturOpsiLengkap] = useState<string[]>([]);
+  const [opsiLengkap, mengaturOpsiLengkap] = useState<
+    { option: string; description: string }[]
+  >([]);
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(-1);
   const searchHalaman: Record<string, string> = {
     abouts: "/abouts",
@@ -53,20 +55,42 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     if (inputPencarian === "") {
       mengaturOpsiLengkap([]);
     } else {
-      const halamanYangCocok = Object.keys(searchHalaman).filter((halaman) =>
-        halaman.includes(inputPencarian)
-      );
+      const matchedOptions: SetStateAction<
+        { option: string; description: string }[]
+      > = [];
+      Object.keys(searchHalaman).forEach((halaman) => {
+        const description = getDescription(halaman);
+        if (
+          halaman.includes(inputPencarian) ||
+          description.includes(inputPencarian)
+        ) {
+          matchedOptions.push({ option: halaman, description });
+        }
+      });
 
-      if (halamanYangCocok.length > 0) {
-        mengaturOpsiLengkap(halamanYangCocok);
+      if (matchedOptions.length > 0) {
+        mengaturOpsiLengkap(matchedOptions);
       } else {
-        mengaturOpsiLengkap(["results not found"]);
+        mengaturOpsiLengkap([{ option: "results not found", description: "" }]);
       }
     }
 
     // Reset selected option index when the input length decreases
     if (inputPencarian.length < search.length) {
       setSelectedOptionIndex(-1);
+    }
+  };
+
+  const getDescription = (halaman: string) => {
+    switch (halaman) {
+      case "abouts":
+        return "quick count";
+      case "blogs":
+        return "zero on";
+      case "home":
+        return "Hi, what's up everyone, I'm Rizky Putra";
+      default:
+        return "";
     }
   };
 
@@ -84,14 +108,19 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   const menanganiTombol = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
-      if (opsiLengkap.length > 0 && opsiLengkap[0] !== "results not found") {
-        const indexSaatIni = opsiLengkap.indexOf(search);
+      if (
+        opsiLengkap.length > 0 &&
+        opsiLengkap[0].option !== "results not found"
+      ) {
+        const indexSaatIni = opsiLengkap.findIndex(
+          (option) => option.option === search
+        );
         let indexBerikutnya =
           e.key === "ArrowDown"
             ? (indexSaatIni + 1) % opsiLengkap.length
             : (indexSaatIni - 1 + opsiLengkap.length) % opsiLengkap.length;
         if (indexBerikutnya === -1) indexBerikutnya = opsiLengkap.length - 1;
-        mengaturSearch(opsiLengkap[indexBerikutnya]);
+        mengaturSearch(opsiLengkap[indexBerikutnya].option);
         setSelectedOptionIndex(indexBerikutnya);
       }
     } else if (e.key === "Enter") {
@@ -147,7 +176,8 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
           </div>
           {opsiLengkap.length > 0 && (
             <SearchDropdown
-              options={opsiLengkap}
+              options={opsiLengkap.map((option) => option.option)}
+              descriptions={opsiLengkap.map((option) => option.description)}
               selectedOptionIndex={selectedOptionIndex}
               handleOptionSelect={pilihAutoComplete}
               setSelectedOptionIndex={setSelectedOptionIndex}

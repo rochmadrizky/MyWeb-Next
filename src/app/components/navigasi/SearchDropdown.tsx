@@ -2,6 +2,7 @@ import React from "react";
 
 interface SearchDropdownProps {
   options: string[];
+  descriptions: string[]; // Tambahkan deskripsi untuk setiap opsi
   selectedOptionIndex: number;
   handleOptionSelect: (option: string) => void;
   setSelectedOptionIndex: (index: number) => void;
@@ -9,6 +10,7 @@ interface SearchDropdownProps {
 
 const SearchDropdown: React.FC<SearchDropdownProps> = ({
   options,
+  descriptions,
   selectedOptionIndex,
   handleOptionSelect,
   setSelectedOptionIndex,
@@ -35,6 +37,9 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
           }}
         >
           {option}
+          {descriptions[index] && ( // Tampilkan deskripsi jika ada
+            <p className="text-sm text-gray-500">{descriptions[index]}</p>
+          )}
         </li>
       ))}
     </ul>
