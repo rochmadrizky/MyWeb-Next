@@ -63,6 +63,11 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
         mengaturOpsiLengkap(["results not found"]);
       }
     }
+
+    // Reset selected option index when the input length decreases
+    if (inputPencarian.length < search.length) {
+      setSelectedOptionIndex(-1);
+    }
   };
 
   const pilihAutoComplete = (option: string) => {
@@ -98,8 +103,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   };
 
   const menutupModal = () => {
-    mengaturSearch(""); // Reset nilai pencarian
-    setSelectedOptionIndex(-1); // Reset indeks opsi terpilih
+    mengulangSearch();
     menutup(); // Panggil fungsi menutup yang diterima dari props
   };
 

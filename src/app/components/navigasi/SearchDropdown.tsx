@@ -18,11 +18,21 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
       {options.map((option, index) => (
         <li
           key={index}
-          className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
-            selectedOptionIndex === index ? "bg-blue-200" : ""
-          }`}
-          onClick={() => handleOptionSelect(option)}
-          onMouseEnter={() => setSelectedOptionIndex(index)}
+          className={`px-4 py-2 ${
+            option === "results not found"
+              ? "text-gray-500 cursor-default"
+              : "cursor-pointer hover:bg-gray-200"
+          } ${selectedOptionIndex === index ? "bg-gray-300" : ""}`}
+          onClick={() => {
+            if (option !== "results not found") {
+              handleOptionSelect(option);
+            }
+          }}
+          onMouseEnter={() => {
+            if (option !== "results not found") {
+              setSelectedOptionIndex(index);
+            }
+          }}
         >
           {option}
         </li>
