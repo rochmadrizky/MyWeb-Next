@@ -8,8 +8,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 }) => {
   const [search, mengaturSearch] = useState("");
   const [opsiLengkap, mengaturOpsiLengkap] = useState<string[]>([]);
-  const [opsiIndex, mengaturOpsiIndex] = useState<number>(-1);
-
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(-1);
   const searchHalaman: Record<string, string> = {
     abouts: "/abouts",
     blogs: "/blogs",
@@ -22,14 +21,14 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     const klikLuar = (klik: MouseEvent) => {
       if (modal.current && !modal.current.contains(klik.target as Node)) {
         menutup();
-        mengulangSearch();
+        mengulangSearch(); // Reset pencarian saat menutup modal dari luar
       }
     };
 
     const klikEscape = (klik: KeyboardEvent) => {
       if (klik.key === "Escape") {
         menutup();
-        mengulangSearch();
+        mengulangSearch(); // Reset pencarian saat menutup modal dengan tombol Escape
       }
     };
 
@@ -61,20 +60,20 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       if (halamanYangCocok.length > 0) {
         mengaturOpsiLengkap(halamanYangCocok);
       } else {
-        mengaturOpsiLengkap(["not found"]);
+        mengaturOpsiLengkap(["results not found"]);
       }
     }
   };
 
-  const pilihOpsiLengkap = (option: string) => {
-    if (option !== "not found") {
+  const pilihAutoComplete = (option: string) => {
+    if (option !== "results not found") {
       const halamanYangDipilih = searchHalaman[option];
       if (halamanYangDipilih) {
         window.location.href = halamanYangDipilih;
       }
-      mengaturSearch("");
+      mengaturSearch(""); // Kosongkan input setelah memilih
     }
-    mengaturOpsiLengkap([]);
+    mengaturOpsiLengkap([]); // Sembunyikan dropdown setelah pengguna memilih opsi
   };
 
   const menanganiTombol = (e: React.KeyboardEvent) => {
@@ -88,32 +87,32 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
             : (indexSaatIni - 1 + opsiLengkap.length) % opsiLengkap.length;
         if (indexBerikutnya === -1) indexBerikutnya = opsiLengkap.length - 1;
         mengaturSearch(opsiLengkap[indexBerikutnya]);
-        mengaturOpsiIndex(indexBerikutnya);
+        setSelectedOptionIndex(indexBerikutnya);
       }
     } else if (e.key === "Enter") {
-      pilihOpsiLengkap(search);
+      pilihAutoComplete(search);
     } else if (e.key === "Escape") {
       menutup();
-      mengulangSearch();
+      mengulangSearch(); // Reset pencarian saat menekan tombol Escape
     }
   };
 
   const menutupModal = () => {
-    mengaturSearch("");
-    mengaturOpsiIndex(-1);
-    menutup();
+    mengaturSearch(""); // Reset nilai pencarian
+    setSelectedOptionIndex(-1); // Reset indeks opsi terpilih
+    menutup(); // Panggil fungsi menutup yang diterima dari props
   };
 
   const mengulangSearch = () => {
-    mengaturSearch("");
-    mengaturOpsiIndex(-1);
-    mengaturOpsiLengkap([]);
+    mengaturSearch(""); // Reset nilai pencarian
+    setSelectedOptionIndex(-1); // Reset indeks opsi terpilih
+    mengaturOpsiLengkap([]); // Menghapus opsi dropdown
   };
 
   return (
     <div
       className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ${
-        membuka ? "tampil" : "tutup"
+        membuka ? "visible" : "hidden"
       }`}
     >
       <div
@@ -136,7 +135,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
             />
 
             <button
-              onClick={() => pilihOpsiLengkap(search)}
+              onClick={() => pilihAutoComplete(search)}
               className="bg-gray-300 px-3 py-2 rounded-r-lg"
             >
               <IconSearch />
@@ -144,10 +143,10 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
           </div>
           {opsiLengkap.length > 0 && (
             <SearchDropdown
-              opsi={opsiLengkap}
-              opsiIndexYangDipilih={opsiIndex}
-              menanganiPilihan={pilihOpsiLengkap}
-              mengaturIndexYangDipilih={mengaturOpsiIndex}
+              options={opsiLengkap}
+              selectedOptionIndex={selectedOptionIndex}
+              handleOptionSelect={pilihAutoComplete}
+              setSelectedOptionIndex={setSelectedOptionIndex}
             />
           )}
         </div>
