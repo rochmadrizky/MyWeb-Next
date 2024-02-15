@@ -80,7 +80,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   const menanganiTombol = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
-      if (opsiLengkap.length > 0 && opsiLengkap[0] !== "not found") {
+      if (opsiLengkap.length > 0 && opsiLengkap[0] !== "results not found") {
         const indexSaatIni = opsiLengkap.indexOf(search);
         let indexBerikutnya =
           e.key === "ArrowDown"
