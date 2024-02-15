@@ -113,7 +113,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   return (
     <div
       className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ${
-        membuka ? "visible" : "hidden"
+        membuka ? "tampil" : "tutup"
       }`}
     >
       <div
