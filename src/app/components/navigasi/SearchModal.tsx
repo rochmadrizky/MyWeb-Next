@@ -1,5 +1,5 @@
 import { IconSearch, IconX } from "@tabler/icons-react";
-import { useState, useEffect, useRef, SetStateAction } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchDropdown from "./SearchDropdown";
 
 const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
@@ -11,10 +11,12 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     { opsi: string; deskripsi: string }[]
   >([]);
   const [pilihOpsiIndex, mengaturPilihOpsiIndex] = useState<number>(-1);
-  const mencariHalaman: Record<string, string> = {
-    abouts: "/abouts",
-    blogs: "/blogs",
-    home: "/",
+
+  const halamanInfo: Record<string, { deskripsi: string; link: string }> = {
+    Abouts: { deskripsi: "Related things about me.", link: "/abouts" },
+    Blogs: { deskripsi: "My blog notes are all here.", link: "/blogs" },
+    Home: { deskripsi: "My introduction section or main page", link: "/" },
+    Game: { deskripsi: "I made a simple TicTacToe game", link: "/games" },
   };
 
   const modal = useRef<HTMLDivElement>(null);
@@ -49,20 +51,18 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   }, [membuka, menutup]);
 
   const mengubahKolomInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputPencarian = e.target.value.toLowerCase().trim();
+    const inputPencarian = e.target.value;
     mengaturSearch(inputPencarian);
 
     if (inputPencarian === "") {
       mengaturOpsiLengkap([]);
     } else {
-      const opsiYangCocok: SetStateAction<
-        { opsi: string; deskripsi: string }[]
-      > = [];
-      Object.keys(mencariHalaman).forEach((halaman) => {
+      const opsiYangCocok: { opsi: string; deskripsi: string }[] = [];
+      Object.keys(halamanInfo).forEach((halaman) => {
         const deskripsi = dapatkanDeskripsi(halaman);
         if (
-          halaman.includes(inputPencarian) ||
-          deskripsi.includes(inputPencarian)
+          halaman.toLowerCase().includes(inputPencarian.toLowerCase()) ||
+          deskripsi.toLowerCase().includes(inputPencarian.toLowerCase())
         ) {
           opsiYangCocok.push({ opsi: halaman, deskripsi });
         }
@@ -81,23 +81,14 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   };
 
   const dapatkanDeskripsi = (halaman: string) => {
-    switch (halaman) {
-      case "abouts":
-        return "quick count";
-      case "blogs":
-        return "zero on";
-      case "home":
-        return "Hi, what's up everyone, I'm Rizky Putra";
-      default:
-        return "";
-    }
+    return halamanInfo[halaman]?.deskripsi || "";
   };
 
   const pilihanLengkap = (opsi: string) => {
     if (opsi !== "results not found") {
-      const halamanYangDipilih = mencariHalaman[opsi];
-      if (halamanYangDipilih) {
-        window.location.href = halamanYangDipilih;
+      const halaman = halamanInfo[opsi];
+      if (halaman) {
+        window.location.href = halaman.link;
       }
       mengaturSearch("");
     }
@@ -158,6 +149,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
         <div className="p-4">
           <div className="flex items-center relative">
             <input
+              name="pencarian"
               type="text"
               value={search}
               onChange={mengubahKolomInput}
