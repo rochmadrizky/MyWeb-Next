@@ -8,10 +8,10 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 }) => {
   const [search, mengaturSearch] = useState("");
   const [opsiLengkap, mengaturOpsiLengkap] = useState<
-    { option: string; description: string }[]
+    { opsi: string; deskripsi: string }[]
   >([]);
-  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(-1);
-  const searchHalaman: Record<string, string> = {
+  const [pilihOpsiIndex, mengaturPilihOpsiIndex] = useState<number>(-1);
+  const mencariHalaman: Record<string, string> = {
     abouts: "/abouts",
     blogs: "/blogs",
     home: "/",
@@ -23,14 +23,14 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     const klikLuar = (klik: MouseEvent) => {
       if (modal.current && !modal.current.contains(klik.target as Node)) {
         menutup();
-        mengulangSearch(); // Reset pencarian saat menutup modal dari luar
+        mengulangSearch();
       }
     };
 
     const klikEscape = (klik: KeyboardEvent) => {
       if (klik.key === "Escape") {
         menutup();
-        mengulangSearch(); // Reset pencarian saat menutup modal dengan tombol Escape
+        mengulangSearch();
       }
     };
 
@@ -55,33 +55,32 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     if (inputPencarian === "") {
       mengaturOpsiLengkap([]);
     } else {
-      const matchedOptions: SetStateAction<
-        { option: string; description: string }[]
+      const opsiYangCocok: SetStateAction<
+        { opsi: string; deskripsi: string }[]
       > = [];
-      Object.keys(searchHalaman).forEach((halaman) => {
-        const description = getDescription(halaman);
+      Object.keys(mencariHalaman).forEach((halaman) => {
+        const deskripsi = dapatkanDeskripsi(halaman);
         if (
           halaman.includes(inputPencarian) ||
-          description.includes(inputPencarian)
+          deskripsi.includes(inputPencarian)
         ) {
-          matchedOptions.push({ option: halaman, description });
+          opsiYangCocok.push({ opsi: halaman, deskripsi });
         }
       });
 
-      if (matchedOptions.length > 0) {
-        mengaturOpsiLengkap(matchedOptions);
+      if (opsiYangCocok.length > 0) {
+        mengaturOpsiLengkap(opsiYangCocok);
       } else {
-        mengaturOpsiLengkap([{ option: "results not found", description: "" }]);
+        mengaturOpsiLengkap([{ opsi: "results not found", deskripsi: "" }]);
       }
     }
 
-    // Reset selected option index when the input length decreases
     if (inputPencarian.length < search.length) {
-      setSelectedOptionIndex(-1);
+      mengaturPilihOpsiIndex(-1);
     }
   };
 
-  const getDescription = (halaman: string) => {
+  const dapatkanDeskripsi = (halaman: string) => {
     switch (halaman) {
       case "abouts":
         return "quick count";
@@ -94,15 +93,15 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     }
   };
 
-  const pilihAutoComplete = (option: string) => {
-    if (option !== "results not found") {
-      const halamanYangDipilih = searchHalaman[option];
+  const pilihanLengkap = (opsi: string) => {
+    if (opsi !== "results not found") {
+      const halamanYangDipilih = mencariHalaman[opsi];
       if (halamanYangDipilih) {
         window.location.href = halamanYangDipilih;
       }
-      mengaturSearch(""); // Kosongkan input setelah memilih
+      mengaturSearch("");
     }
-    mengaturOpsiLengkap([]); // Sembunyikan dropdown setelah pengguna memilih opsi
+    mengaturOpsiLengkap([]);
   };
 
   const menanganiTombol = (e: React.KeyboardEvent) => {
@@ -110,36 +109,36 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       e.preventDefault();
       if (
         opsiLengkap.length > 0 &&
-        opsiLengkap[0].option !== "results not found"
+        opsiLengkap[0].opsi !== "results not found"
       ) {
         const indexSaatIni = opsiLengkap.findIndex(
-          (option) => option.option === search
+          (ops) => ops.opsi === search
         );
         let indexBerikutnya =
           e.key === "ArrowDown"
             ? (indexSaatIni + 1) % opsiLengkap.length
             : (indexSaatIni - 1 + opsiLengkap.length) % opsiLengkap.length;
         if (indexBerikutnya === -1) indexBerikutnya = opsiLengkap.length - 1;
-        mengaturSearch(opsiLengkap[indexBerikutnya].option);
-        setSelectedOptionIndex(indexBerikutnya);
+        mengaturSearch(opsiLengkap[indexBerikutnya].opsi);
+        mengaturPilihOpsiIndex(indexBerikutnya);
       }
     } else if (e.key === "Enter") {
-      pilihAutoComplete(search);
+      pilihanLengkap(search);
     } else if (e.key === "Escape") {
       menutup();
-      mengulangSearch(); // Reset pencarian saat menekan tombol Escape
+      mengulangSearch();
     }
   };
 
   const menutupModal = () => {
     mengulangSearch();
-    menutup(); // Panggil fungsi menutup yang diterima dari props
+    menutup();
   };
 
   const mengulangSearch = () => {
-    mengaturSearch(""); // Reset nilai pencarian
-    setSelectedOptionIndex(-1); // Reset indeks opsi terpilih
-    mengaturOpsiLengkap([]); // Menghapus opsi dropdown
+    mengaturSearch("");
+    mengaturPilihOpsiIndex(-1);
+    mengaturOpsiLengkap([]);
   };
 
   return (
@@ -168,19 +167,20 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
             />
 
             <button
-              onClick={() => pilihAutoComplete(search)}
+              onClick={() => pilihanLengkap(search)}
               className="bg-gray-300 px-3 py-2 rounded-r-lg"
             >
               <IconSearch />
             </button>
           </div>
+
           {opsiLengkap.length > 0 && (
             <SearchDropdown
-              options={opsiLengkap.map((option) => option.option)}
-              descriptions={opsiLengkap.map((option) => option.description)}
-              selectedOptionIndex={selectedOptionIndex}
-              handleOptionSelect={pilihAutoComplete}
-              setSelectedOptionIndex={setSelectedOptionIndex}
+              opsional={opsiLengkap.map((option) => option.opsi)}
+              deskripsi={opsiLengkap.map((option) => option.deskripsi)}
+              opsiYangDipilih={pilihOpsiIndex}
+              menanganiPilihan={pilihanLengkap}
+              mengaturOpsiYangDipilih={mengaturPilihOpsiIndex}
             />
           )}
         </div>
