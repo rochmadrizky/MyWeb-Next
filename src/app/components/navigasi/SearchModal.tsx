@@ -154,7 +154,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
               value={search}
               onChange={mengubahKolomInput}
               onKeyDown={menanganiTombol}
-              placeholder="mau cari?"
+              placeholder="Please search here"
               className="w-full px-3 py-2 rounded-l-lg"
             />
 
@@ -173,6 +173,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
               opsiYangDipilih={pilihOpsiIndex}
               menanganiPilihan={pilihanLengkap}
               mengaturOpsiYangDipilih={mengaturPilihOpsiIndex}
+              pencarianDalamModal={search} // Meneruskan teks pencarian ke komponen SearchDropdown
             />
           )}
         </div>
