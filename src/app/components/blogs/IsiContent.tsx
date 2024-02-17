@@ -40,17 +40,33 @@ const IsiContent = () => {
 
   const [indexSaatIni, mengaturIndexSaatIni] = useState(0);
   const [mouse, mengaturMouse] = useState<number | null>(null);
+  const [animasi, mengaturAnimasi] = useState(false);
+  const [animasiBergeser, mengaturAnimasiBergeser] = useState(false);
 
   const kontenSelanjutnya = () => {
-    mengaturIndexSaatIni((isiIndex) =>
-      isiIndex === konten.length - 1 ? 0 : isiIndex + 1
-    );
+    if (!animasi) {
+      mengaturAnimasi(true);
+      mengaturAnimasiBergeser(true);
+      mengaturIndexSaatIni((isiIndex) =>
+        isiIndex === konten.length - 1 ? 0 : isiIndex + 1
+      );
+      setTimeout(() => {
+        mengaturAnimasi(false);
+      }, 500);
+    }
   };
 
   const kontenSebelumnya = () => {
-    mengaturIndexSaatIni((isiIndex) =>
-      isiIndex === 0 ? konten.length - 1 : isiIndex - 1
-    );
+    if (!animasi) {
+      mengaturAnimasi(true);
+      mengaturAnimasiBergeser(false);
+      mengaturIndexSaatIni((isiIndex) =>
+        isiIndex === 0 ? konten.length - 1 : isiIndex - 1
+      );
+      setTimeout(() => {
+        mengaturAnimasi(false);
+      }, 500);
+    }
   };
 
   const mouseSaatDiklik = (
@@ -87,7 +103,13 @@ const IsiContent = () => {
 
         <div
           key={indexSaatIni}
-          className="flex items-center justify-center bg-gray-100 w-full md:w-96 h-52 rounded-lg shadow-md"
+          className={`flex items-center justify-center bg-gray-100 w-full md:w-96 h-52 rounded-lg shadow-md transition-transform ${
+            animasi
+              ? animasiBergeser
+                ? "transform translate-x-3"
+                : "transform -translate-x-3"
+              : ""
+          }`}
         >
           <div className="p-8">
             <div className=" flex flex-col items-center justify-center">
