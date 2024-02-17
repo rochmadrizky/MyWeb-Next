@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchModal from "./SearchModal";
 import { IconSearch, IconZoomOutArea } from "@tabler/icons-react";
 
@@ -15,6 +15,19 @@ const SearchButton: React.FC = () => {
     mengaturModalTerbuka(false);
     mengaturPutarIcon(!putarIcon);
   };
+
+  const shortcutMembukaModal = (klik: KeyboardEvent) => {
+    if ((klik.metaKey || klik.ctrlKey) && klik.key === "k") {
+      membukaModal();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", shortcutMembukaModal);
+    return () => {
+      window.removeEventListener("keydown", shortcutMembukaModal);
+    };
+  }, []);
 
   return (
     <div>

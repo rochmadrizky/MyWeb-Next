@@ -1,4 +1,4 @@
-import { IconSearch, IconX } from "@tabler/icons-react";
+import { IconEyeSearch, IconSearch } from "@tabler/icons-react";
 import { useState, useEffect, useRef } from "react";
 import SearchDropdown from "./SearchDropdown";
 
@@ -131,7 +131,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center backdrop-blur-sm ${
+      className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 ${
         membuka ? "visible" : "hidden"
       }`}
     >
@@ -150,9 +150,15 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 
             <button
               onClick={() => pilihanLengkap(search)}
-              className="px-3 py-2 absolute top-0 right-0"
+              className={`px-3 py-2 absolute top-0 right-0 transform ${
+                search ? "rotate-45" : ""
+              } transition duration-300`}
             >
-              <IconSearch />
+              {search ? (
+                <IconEyeSearch className=" -rotate-45" />
+              ) : (
+                <IconSearch />
+              )}
             </button>
 
             {opsiLengkap.length > 0 && (
