@@ -40,7 +40,7 @@ const Navbar = () => {
   }`;
 
   return (
-    <header className="border-b border-black bg-gray-200 p-4 sticky top-0 left-0 right-0 z-10">
+    <header className="border-b border-black bg-gray-100 p-4 sticky top-0 left-0 right-0 z-10">
       <div className="max-w-7xl relative mx-auto flex justify-center items-center">
         <div className="flex items-center">
           <div className="hidden md:block">

@@ -2,7 +2,7 @@ import React from "react";
 
 const HomeContent = () => {
   return (
-    <div className="max-w-4xl flex items-center justify-center">
+    <div className="max-w-4xl mx-auto flex items-center justify-center">
       <div className="p-4">
         <img
           src="/me/thisIsMe.png"
