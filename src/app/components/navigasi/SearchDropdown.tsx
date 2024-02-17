@@ -18,7 +18,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
   pencarianDalamModal,
 }) => {
   return (
-    <ul className="absolute left-0 mt-2 w-full bg-white rounded-lg shadow-lg z-10">
+    <ul className="absolute left-0 mt-2 w-full bg-white rounded-b-lg shadow-lg z-10 overflow-hidden">
       {opsional.map((opsi, isi) => {
         const awalIndex = opsi
           .toLowerCase()
@@ -55,24 +55,30 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
               }
             }}
           >
-            {penandaOpsi}
-            {deskripsi[isi] && (
-              <p className="text-sm text-gray-500">
-                {deskripsi[isi]
-                  .toLowerCase()
-                  .includes(pencarianDalamModal.toLowerCase())
-                  ? deskripsi[isi]
-                      .split(new RegExp(`(${pencarianDalamModal})`, "gi"))
-                      .map((pecahan, index) =>
-                        pecahan.toLowerCase() ===
-                        pencarianDalamModal.toLowerCase() ? (
-                          <mark key={index}>{pecahan}</mark>
-                        ) : (
-                          <span key={index}>{pecahan}</span>
-                        )
-                      )
-                  : deskripsi[isi]}
-              </p>
+            {opsi === "results not found" ? (
+              opsi
+            ) : (
+              <div>
+                {penandaOpsi}
+                {deskripsi[isi] && (
+                  <p className="text-sm text-gray-500">
+                    {deskripsi[isi]
+                      .toLowerCase()
+                      .includes(pencarianDalamModal.toLowerCase())
+                      ? deskripsi[isi]
+                          .split(new RegExp(`(${pencarianDalamModal})`, "gi"))
+                          .map((pecahan, index) =>
+                            pecahan.toLowerCase() ===
+                            pencarianDalamModal.toLowerCase() ? (
+                              <mark key={index}>{pecahan}</mark>
+                            ) : (
+                              <span key={index}>{pecahan}</span>
+                            )
+                          )
+                      : deskripsi[isi]}
+                  </p>
+                )}
+              </div>
             )}
           </li>
         );
