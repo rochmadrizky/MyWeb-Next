@@ -102,19 +102,21 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
         opsiLengkap.length > 0 &&
         opsiLengkap[0].opsi !== "results not found"
       ) {
-        const indexSaatIni = opsiLengkap.findIndex(
-          (ops) => ops.opsi === search
-        );
-        let indexBerikutnya =
-          e.key === "ArrowDown"
-            ? (indexSaatIni + 1) % opsiLengkap.length
-            : (indexSaatIni - 1 + opsiLengkap.length) % opsiLengkap.length;
-        if (indexBerikutnya === -1) indexBerikutnya = opsiLengkap.length - 1;
-        mengaturSearch(opsiLengkap[indexBerikutnya].opsi);
+        let indexBerikutnya;
+        if (pilihOpsiIndex === -1) {
+          indexBerikutnya = e.key === "ArrowDown" ? 0 : opsiLengkap.length - 1;
+        } else {
+          indexBerikutnya =
+            (pilihOpsiIndex +
+              (e.key === "ArrowDown" ? 1 : opsiLengkap.length - 1)) %
+            opsiLengkap.length;
+        }
         mengaturPilihOpsiIndex(indexBerikutnya);
       }
     } else if (e.key === "Enter") {
-      pilihanLengkap(search);
+      if (pilihOpsiIndex !== -1) {
+        pilihanLengkap(opsiLengkap[pilihOpsiIndex].opsi);
+      }
     } else if (e.key === "Escape") {
       menutup();
       mengulangSearch();
