@@ -77,7 +77,7 @@ const Navbar = () => {
 
         {bukaMenu && (
           <div
-            className="fixed inset-0 bg-black opacity-10 z-40  "
+            className="fixed inset-0 bg-black bg-opacity-70 z-40  "
             onClick={klikMenuIcon}
           />
         )}
