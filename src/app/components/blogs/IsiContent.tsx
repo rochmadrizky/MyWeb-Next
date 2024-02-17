@@ -39,6 +39,7 @@ const IsiContent = () => {
   ];
 
   const [indexSaatIni, mengaturIndexSaatIni] = useState(0);
+  const [mouse, mengaturMouse] = useState<number | null>(null);
 
   const kontenSelanjutnya = () => {
     mengaturIndexSaatIni((isiIndex) =>
@@ -52,35 +53,61 @@ const IsiContent = () => {
     );
   };
 
+  const mouseSaatDiklik = (
+    klik: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    mengaturMouse(klik.clientX);
+  };
+
+  const mouseSaatDigeser = (
+    geser: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if (mouse !== null) {
+      const geserHorizontal = geser.clientX;
+      const arahGerakan = geserHorizontal - mouse;
+      if (arahGerakan > 0 && indexSaatIni !== konten.length - 1) {
+        kontenSelanjutnya();
+      } else if (arahGerakan < 0 && indexSaatIni !== 0) {
+        kontenSebelumnya();
+      }
+      mengaturMouse(null);
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
+    <div
+      className="max-w-7xl mx-auto px-4 flex items-center justify-center"
+      onMouseDown={mouseSaatDiklik}
+      onMouseUp={mouseSaatDigeser}
+    >
       <div className="flex items-center gap-4">
-        <button onClick={kontenSebelumnya}>
+        <button onClick={kontenSebelumnya} disabled={indexSaatIni === 0}>
           <IconPlayerTrackPrevFilled />
         </button>
 
         <div
           key={indexSaatIni}
-          className="bg-gray-100 w-full md:w-96 h-52 rounded-lg shadow-md"
+          className="flex items-center justify-center bg-gray-100 w-full md:w-96 h-52 rounded-lg shadow-md"
         >
-          <div className="flex items-center justify-center">
-            <div className="p-8">
-              <div className=" flex flex-col items-center justify-center">
-                <div className="p-4">{konten[indexSaatIni].icon}</div>
-                <div className="text-center">
-                  <h1 className="font-prefix text-xl">
-                    {konten[indexSaatIni].judul}
-                  </h1>
-                  <p className="font-description py-2">
-                    {konten[indexSaatIni].deskripsi}
-                  </p>
-                </div>
+          <div className="p-8">
+            <div className=" flex flex-col items-center justify-center">
+              <div className="p-4">{konten[indexSaatIni].icon}</div>
+              <div className="text-center">
+                <h1 className="font-prefix text-xl">
+                  {konten[indexSaatIni].judul}
+                </h1>
+                <p className="font-description py-2">
+                  {konten[indexSaatIni].deskripsi}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <button onClick={kontenSelanjutnya}>
+        <button
+          onClick={kontenSelanjutnya}
+          disabled={indexSaatIni === konten.length - 1}
+        >
           <IconPlayerTrackNextFilled />
         </button>
       </div>
