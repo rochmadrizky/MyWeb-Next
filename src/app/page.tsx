@@ -4,7 +4,7 @@ import IsiContent from "./components/home/IsiContent";
 
 const Page = () => {
   return (
-    <div className="px-4">
+    <div>
       <div
         className="h-[484px] flex items-center justify-center"
         style={{ backgroundImage: `url('/background/topography.svg')` }}

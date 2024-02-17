@@ -121,11 +121,6 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     }
   };
 
-  const menutupModal = () => {
-    mengulangSearch();
-    menutup();
-  };
-
   const mengulangSearch = () => {
     mengaturSearch("");
     mengaturPilihOpsiIndex(-1);
@@ -134,19 +129,12 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ${
+      className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center backdrop-blur-sm ${
         membuka ? "visible" : "hidden"
       }`}
     >
-      <div
-        ref={modal}
-        className="bg-gray-200 p-6 rounded-lg shadow-md max-w-md relative"
-      >
-        <button onClick={menutupModal} className="absolute top-0 right-0 p-2">
-          <IconX />
-        </button>
-
-        <div className="p-4">
+      <div ref={modal} className=" w-96 top-20 rounded-lg absolute">
+        <div className="p-2">
           <div className="flex items-center relative">
             <input
               name="pencarian"
@@ -155,27 +143,27 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
               onChange={mengubahKolomInput}
               onKeyDown={menanganiTombol}
               placeholder="Please search here"
-              className="w-full px-3 py-2 rounded-l-lg"
+              className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
             />
 
             <button
               onClick={() => pilihanLengkap(search)}
-              className="bg-gray-300 px-3 py-2 rounded-r-lg"
+              className="px-3 py-2 absolute top-0 right-0"
             >
               <IconSearch />
             </button>
-          </div>
 
-          {opsiLengkap.length > 0 && (
-            <SearchDropdown
-              opsional={opsiLengkap.map((option) => option.opsi)}
-              deskripsi={opsiLengkap.map((option) => option.deskripsi)}
-              opsiYangDipilih={pilihOpsiIndex}
-              menanganiPilihan={pilihanLengkap}
-              mengaturOpsiYangDipilih={mengaturPilihOpsiIndex}
-              pencarianDalamModal={search} // Meneruskan teks pencarian ke komponen SearchDropdown
-            />
-          )}
+            {opsiLengkap.length > 0 && (
+              <SearchDropdown
+                opsional={opsiLengkap.map((option) => option.opsi)}
+                deskripsi={opsiLengkap.map((option) => option.deskripsi)}
+                opsiYangDipilih={pilihOpsiIndex}
+                menanganiPilihan={pilihanLengkap}
+                mengaturOpsiYangDipilih={mengaturPilihOpsiIndex}
+                pencarianDalamModal={search}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

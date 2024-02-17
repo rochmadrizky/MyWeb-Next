@@ -35,7 +35,7 @@ const IsiContent = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto flex items-center justify-center">
+    <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {konten.map((isi, urutan) => (
           <div key={urutan} className="bg-gray-100 rounded-lg shadow-md">

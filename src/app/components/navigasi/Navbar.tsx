@@ -54,7 +54,7 @@ const Navbar = () => {
 
         <div className="block md:hidden">
           <div className="flex items-center justify-center gap-6">
-            <div>
+            <div className="z-10">
               <SearchButton />
             </div>
 
