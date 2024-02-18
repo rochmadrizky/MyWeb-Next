@@ -1,140 +1,97 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  IconActivity,
-  IconCode,
-  IconCoffee,
-  IconPlayerTrackNextFilled,
-  IconPlayerTrackPrevFilled,
-  IconQuotes,
-} from "@tabler/icons-react";
+import { IconPlayerTrackNext, IconPlayerTrackPrev } from "@tabler/icons-react";
+import React, { useState, useRef } from "react";
 
-const IsiContent = () => {
-  const konten = [
+function App() {
+  const slides = [
     {
-      icon: <IconCode />,
-      judul: "Coding.",
-      deskripsi:
-        "Every day I always practice coding to increase my skills and knowledge, my field is Front-End Developers.",
+      url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80",
     },
     {
-      icon: <IconCoffee />,
-      judul: "Inspiration.",
-      deskripsi:
-        "By the way, coffee and cigarettes are one of the driving forces of inspiration for me.",
+      url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
     },
     {
-      icon: <IconActivity />,
-      judul: "Activity.",
-      deskripsi:
-        "Sometimes during my busy schedule, I always make time for sport, namely boxing.",
+      url: "https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80",
+    },
+
+    {
+      url: "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80",
     },
     {
-      icon: <IconQuotes />,
-      judul: "Quotes.",
-      deskripsi:
-        '"All days are beautiful, if they are with You." just kidding, relax, friend. hehe',
+      url: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
     },
   ];
 
-  const [indexSaatIni, mengaturIndexSaatIni] = useState(0);
-  const [mouse, mengaturMouse] = useState<number | null>(null);
-  const [animasi, mengaturAnimasi] = useState(false);
-  const [animasiBergeser, mengaturAnimasiBergeser] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragStartX, setDragStartX] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-  const kontenSelanjutnya = () => {
-    if (!animasi) {
-      mengaturAnimasi(true);
-      mengaturAnimasiBergeser(true);
-      mengaturIndexSaatIni((isiIndex) =>
-        isiIndex === konten.length - 1 ? 0 : isiIndex + 1
-      );
-      setTimeout(() => {
-        mengaturAnimasi(false);
-      }, 500);
+  const prevSlide = () => {
+    const newIndex = currentIndex === 0 ? slides.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const newIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+    setDragStartX(event.pageX);
+  };
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (dragStartX === 0 || !sliderRef.current) return;
+
+    const currentX = event.pageX;
+    const difference = currentX - dragStartX;
+
+    if (difference > 50 && currentIndex !== slides.length - 1) {
+      nextSlide();
+      setDragStartX(0);
+    } else if (difference < -50 && currentIndex !== 0) {
+      prevSlide();
+      setDragStartX(0);
     }
   };
 
-  const kontenSebelumnya = () => {
-    if (!animasi) {
-      mengaturAnimasi(true);
-      mengaturAnimasiBergeser(false);
-      mengaturIndexSaatIni((isiIndex) =>
-        isiIndex === 0 ? konten.length - 1 : isiIndex - 1
-      );
-      setTimeout(() => {
-        mengaturAnimasi(false);
-      }, 500);
-    }
-  };
-
-  const mouseSaatDiklik = (
-    klik: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    mengaturMouse(klik.clientX);
-  };
-
-  const mouseSaatDigeser = (
-    geser: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (mouse !== null) {
-      const geserHorizontal = geser.clientX;
-      const arahGerakan = geserHorizontal - mouse;
-      if (arahGerakan > 0 && indexSaatIni !== konten.length - 1) {
-        kontenSelanjutnya();
-      } else if (arahGerakan < 0 && indexSaatIni !== 0) {
-        kontenSebelumnya();
-      }
-      mengaturMouse(null);
-    }
+  const handleMouseUp = () => {
+    setDragStartX(0);
   };
 
   return (
     <div
-      className="max-w-7xl mx-auto px-4 flex items-center justify-center"
-      onMouseDown={mouseSaatDiklik}
-      onMouseUp={mouseSaatDigeser}
+      className="md:max-w-[1400px] h-[780px] w-full m-auto py-16 px-4 relative group"
+      ref={sliderRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
     >
-      <div className="flex items-center gap-4">
-        <button onClick={kontenSebelumnya} disabled={indexSaatIni === 0}>
-          <IconPlayerTrackPrevFilled />
-        </button>
+      <div
+        style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+        className="w-full h-full rounded-2xl bg-center bg-cover duration-500"
+      ></div>
 
-        <div
-          key={indexSaatIni}
-          className={`flex items-center justify-center bg-gray-100 w-full md:w-96 h-52 rounded-lg shadow-md transition-transform ${
-            animasi
-              ? animasiBergeser
-                ? "transform translate-x-3"
-                : "transform -translate-x-3"
-              : ""
-          }`}
-        >
-          <div className="p-8">
-            <div className=" flex flex-col items-center justify-center">
-              <div className="p-4">{konten[indexSaatIni].icon}</div>
-              <div className="text-center">
-                <h1 className="font-prefix text-xl">
-                  {konten[indexSaatIni].judul}
-                </h1>
-                <p className="font-description py-2">
-                  {konten[indexSaatIni].deskripsi}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div
+        className={`${
+          currentIndex === 0 ? "pointer-events-none" : "pointer-events-auto"
+        } group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer`}
+      >
+        <IconPlayerTrackPrev onClick={prevSlide} />
+      </div>
 
-        <button
-          onClick={kontenSelanjutnya}
-          disabled={indexSaatIni === konten.length - 1}
-        >
-          <IconPlayerTrackNextFilled />
-        </button>
+      <div
+        className={`${
+          currentIndex === slides.length - 1
+            ? "pointer-events-none"
+            : "pointer-events-auto"
+        } group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer`}
+      >
+        <IconPlayerTrackNext onClick={nextSlide} />
       </div>
     </div>
   );
-};
+}
 
-export default IsiContent;
+export default App;
