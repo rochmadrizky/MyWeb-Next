@@ -123,7 +123,7 @@ const IsiContent = () => {
           style={{ backgroundImage: `url(${konten[indeksSaatIni].gambar})` }}
         >
           <div className="bg-black bg-opacity-60 w-full h-full flex flex-col items-center justify-center relative">
-            <div className="text-center p-4">
+            <div className="text-center text-white p-4">
               <h2 className="text-3xl font-bold mb-4">
                 {konten[indeksSaatIni].judul}
               </h2>

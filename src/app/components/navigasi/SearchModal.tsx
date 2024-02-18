@@ -135,7 +135,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
         membuka ? "visible" : "hidden"
       }`}
     >
-      <div ref={modal} className=" w-96 top-20 rounded-lg absolute">
+      <div ref={modal} className="w-96 top-20 rounded-lg absolute">
         <div className="p-2">
           <div className="flex items-center relative">
             <input
@@ -146,6 +146,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
               onKeyDown={menanganiTombol}
               placeholder="Please search here"
               className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
+              autoFocus
             />
 
             <button
