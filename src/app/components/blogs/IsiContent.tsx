@@ -45,18 +45,21 @@ const IsiContent = () => {
 
   const [indeksSaatIni, mengaturIndeksSaatIni] = useState(0);
   const [seretDariX, mengaturSeretDariX] = useState(0);
+  const [titikAktif, mengaturTitikAktif] = useState(0);
   const penggeser = useRef<HTMLDivElement>(null);
 
   const sebelumnya = () => {
     const pengechekan =
       indeksSaatIni === 0 ? konten.length - 1 : indeksSaatIni - 1;
     mengaturIndeksSaatIni(pengechekan);
+    mengaturTitikAktif(pengechekan);
   };
 
   const selanjutnya = () => {
     const pengechekan =
       indeksSaatIni === konten.length - 1 ? 0 : indeksSaatIni + 1;
     mengaturIndeksSaatIni(pengechekan);
+    mengaturTitikAktif(pengechekan);
   };
 
   const tekanMouse = (klik: React.MouseEvent<HTMLDivElement>) => {
@@ -82,44 +85,67 @@ const IsiContent = () => {
     mengaturSeretDariX(0);
   };
 
+  const titik = konten.map((_, urutan) => (
+    <span
+      key={urutan}
+      className={`h-3 w-3 bg-black ring-white ring-1 rounded-full mx-1 cursor-pointer ${
+        urutan === titikAktif && "bg-white"
+      }`}
+      onClick={() => ubahKontenDenganTitik(urutan)}
+    />
+  ));
+
+  const ubahKontenDenganTitik = (urutanIndex: number) => {
+    mengaturTitikAktif(urutanIndex);
+    mengaturIndeksSaatIni(urutanIndex);
+  };
+
   return (
-    <div
-      className="md:max-w-[1400px] h-[780px] w-full m-auto py-16 px-4 relative group"
-      ref={penggeser}
-      onMouseDown={tekanMouse}
-      onMouseMove={pergerakanMouse}
-      onMouseUp={lepasKlikMouse}
-    >
+    <div>
       <div
-        className="w-full h-full rounded-3xl overflow-hidden bg-center bg-cover duration-500"
-        style={{ backgroundImage: `url(${konten[indeksSaatIni].gambar})` }}
+        className="md:max-w-[1400px] h-[480px] w-full m-auto px-4 flex items-center justify-center gap-1"
+        ref={penggeser}
+        onMouseDown={tekanMouse}
+        onMouseMove={pergerakanMouse}
+        onMouseUp={lepasKlikMouse}
       >
-        <div className="bg-black bg-opacity-60 w-full h-full flex items-center justify-center">
-          <div className="text-white text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              {konten[indeksSaatIni].judul}
-            </h2>
-            <p className="text-lg">{konten[indeksSaatIni].deskripsi}</p>
+        <button
+          onClick={sebelumnya}
+          className={`${
+            indeksSaatIni === 0 ? "pointer-events-none" : "pointer-events-auto"
+          } bg-black rounded-full p-3`}
+        >
+          <IconPlayerTrackPrev className="text-white" />
+        </button>
+
+        <div
+          className="w-full h-full rounded-3xl overflow-hidden bg-center bg-cover duration-500"
+          style={{ backgroundImage: `url(${konten[indeksSaatIni].gambar})` }}
+        >
+          <div className="bg-black bg-opacity-60 w-full h-full flex flex-col items-center justify-center relative">
+            <div className="text-center p-4">
+              <h2 className="text-3xl font-bold mb-4">
+                {konten[indeksSaatIni].judul}
+              </h2>
+              <p className="text-lg">{konten[indeksSaatIni].deskripsi}</p>
+            </div>
+
+            <div className="flex items-center justify-center bottom-5 absolute">
+              {titik}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div
-        className={`${
-          indeksSaatIni === 0 ? "pointer-events-none" : "pointer-events-auto"
-        } group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer`}
-      >
-        <IconPlayerTrackPrev onClick={sebelumnya} />
-      </div>
-
-      <div
-        className={`${
-          indeksSaatIni === konten.length - 1
-            ? "pointer-events-none"
-            : "pointer-events-auto"
-        } group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer`}
-      >
-        <IconPlayerTrackNext onClick={selanjutnya} />
+        <button
+          onClick={selanjutnya}
+          className={`${
+            indeksSaatIni === konten.length - 1
+              ? "pointer-events-none"
+              : "pointer-events-auto"
+          } bg-black rounded-full p-3`}
+        >
+          <IconPlayerTrackNext className="text-white" />
+        </button>
       </div>
     </div>
   );
