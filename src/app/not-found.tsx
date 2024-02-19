@@ -12,7 +12,7 @@ const NotFound = () => {
         <div className="flex flex-col items-center justify-center bg-gray-100">
           <div className="p-4 text-center">
             <h1 className="font-prefix text-4xl">
-              The page doesn't exist, ya guys ya.
+              The page doesn&apos;t exist, ya guys ya.
             </h1>
             <p className="py-1 font-description text-2xl">
               please return to the homepage, ya guys ya.

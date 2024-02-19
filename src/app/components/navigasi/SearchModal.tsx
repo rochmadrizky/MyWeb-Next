@@ -1,6 +1,6 @@
-import { IconEyeSearch, IconSearch } from "@tabler/icons-react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SearchDropdown from "./SearchDropdown";
+import { IconEyeSearch, IconSearch } from "@tabler/icons-react";
 
 const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   membuka,
@@ -20,9 +20,23 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   };
 
   const modal = useRef<HTMLDivElement>(null);
-  const inputFokus = useRef<HTMLInputElement>(null); //
+  const inputFokus = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    const klikLuar = (klik: MouseEvent) => {
+      if (modal.current && !modal.current.contains(klik.target as Node)) {
+        menutup();
+        mengulangSearch();
+      }
+    };
+
+    const klikEscape = (klik: KeyboardEvent) => {
+      if (klik.key === "Escape") {
+        menutup();
+        mengulangSearch();
+      }
+    };
+
     if (membuka) {
       document.addEventListener("mousedown", klikLuar);
       document.addEventListener("keydown", klikEscape);
@@ -37,21 +51,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       document.removeEventListener("mousedown", klikLuar);
       document.removeEventListener("keydown", klikEscape);
     };
-  }, [membuka, menutup]);
-
-  const klikLuar = (klik: MouseEvent) => {
-    if (modal.current && !modal.current.contains(klik.target as Node)) {
-      menutup();
-      mengulangSearch();
-    }
-  };
-
-  const klikEscape = (klik: KeyboardEvent) => {
-    if (klik.key === "Escape") {
-      menutup();
-      mengulangSearch();
-    }
-  };
+  }, [membuka, menutup, inputFokus, modal]);
 
   const mengubahKolomInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputPencarian = e.target.value;
