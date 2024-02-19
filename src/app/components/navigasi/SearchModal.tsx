@@ -20,25 +20,14 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   };
 
   const modal = useRef<HTMLDivElement>(null);
+  const inputFokus = useRef<HTMLInputElement>(null); //
 
   useEffect(() => {
-    const klikLuar = (klik: MouseEvent) => {
-      if (modal.current && !modal.current.contains(klik.target as Node)) {
-        menutup();
-        mengulangSearch();
-      }
-    };
-
-    const klikEscape = (klik: KeyboardEvent) => {
-      if (klik.key === "Escape") {
-        menutup();
-        mengulangSearch();
-      }
-    };
-
     if (membuka) {
       document.addEventListener("mousedown", klikLuar);
       document.addEventListener("keydown", klikEscape);
+
+      inputFokus.current?.focus();
     } else {
       document.removeEventListener("mousedown", klikLuar);
       document.removeEventListener("keydown", klikEscape);
@@ -49,6 +38,20 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       document.removeEventListener("keydown", klikEscape);
     };
   }, [membuka, menutup]);
+
+  const klikLuar = (klik: MouseEvent) => {
+    if (modal.current && !modal.current.contains(klik.target as Node)) {
+      menutup();
+      mengulangSearch();
+    }
+  };
+
+  const klikEscape = (klik: KeyboardEvent) => {
+    if (klik.key === "Escape") {
+      menutup();
+      mengulangSearch();
+    }
+  };
 
   const mengubahKolomInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputPencarian = e.target.value;
@@ -139,6 +142,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
         <div className="p-2">
           <div className="flex items-center relative">
             <input
+              ref={inputFokus}
               name="pencarian"
               type="text"
               value={search}
@@ -146,7 +150,6 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
               onKeyDown={menanganiTombol}
               placeholder="Please search here"
               className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
-              autoFocus
             />
 
             <button
