@@ -1,6 +1,9 @@
 "use client";
 
-import { IconPlayerTrackNext, IconPlayerTrackPrev } from "@tabler/icons-react";
+import {
+  IconPlayerTrackNextFilled,
+  IconPlayerTrackPrevFilled,
+} from "@tabler/icons-react";
 import { useState, useRef } from "react";
 
 const IsiCarousel = () => {
@@ -97,8 +100,8 @@ const IsiCarousel = () => {
   const titik = konten.map((_, urutan) => (
     <span
       key={urutan}
-      className={`h-3 w-3 bg-black ring-white ring-1 rounded-full mx-1 cursor-pointer ${
-        urutan === titikAktif && "bg-white"
+      className={`h-3 w-3 bg-black ring-blue-500 ring-1 rounded-full mx-1 cursor-pointer ${
+        urutan === titikAktif && "bg-blue-500"
       }`}
       onClick={() => ubahKontenDenganTitik(urutan)}
     />
@@ -125,13 +128,13 @@ const IsiCarousel = () => {
           onClick={sebelumnya}
           className={`${
             indeksSaatIni === 0 ? "pointer-events-none" : "pointer-events-auto"
-          } bg-black rounded-full p-3`}
+          } rounded-full p-3`}
         >
-          <IconPlayerTrackPrev className="text-white" />
+          <IconPlayerTrackPrevFilled className="text-blue-500" />
         </button>
 
         <div
-          className="w-full h-full rounded-3xl overflow-hidden bg-center bg-cover duration-500"
+          className="w-full h-full rounded-3xl border-b-2 border-t-2 border-blue-500 overflow-hidden bg-center bg-cover duration-500"
           style={{ backgroundImage: `url(${konten[indeksSaatIni].gambar})` }}
         >
           <div className="bg-black bg-opacity-60 w-full h-full flex flex-col items-center justify-center relative">
@@ -156,9 +159,9 @@ const IsiCarousel = () => {
             indeksSaatIni === konten.length - 1
               ? "pointer-events-none"
               : "pointer-events-auto"
-          } bg-black rounded-full p-3`}
+          } rounded-full p-3`}
         >
-          <IconPlayerTrackNext className="text-white" />
+          <IconPlayerTrackNextFilled className="text-blue-500" />
         </button>
       </div>
 

@@ -41,7 +41,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = ({
             key={isi}
             className={`px-4 py-2 ${
               opsi === "results not found"
-                ? "text-red-300 font-prefix text-center py-4 cursor-default"
+                ? "text-blue-300 font-prefix text-center py-4 cursor-default"
                 : "cursor-pointer hover:bg-gray-200"
             } ${opsiYangDipilih === isi ? "bg-gray-300" : ""}`}
             onClick={() => {
