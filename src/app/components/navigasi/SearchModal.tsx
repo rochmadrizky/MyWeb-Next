@@ -17,6 +17,10 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     Blogs: { deskripsi: "My blog notes are all here.", link: "/blogs" },
     Home: { deskripsi: "My introduction section or main page", link: "/" },
     Game: { deskripsi: "I made a simple TicTacToe game", link: "/games" },
+    Carousel: {
+      deskripsi: "Slide carousel content section",
+      link: "/carousel",
+    },
   };
 
   const modal = useRef<HTMLDivElement>(null);
@@ -138,7 +142,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
         membuka ? "visible" : "hidden"
       }`}
     >
-      <div ref={modal} className="w-96 top-20 rounded-lg absolute">
+      <div ref={modal} className="w-72 md:w-96 top-20 rounded-lg absolute">
         <div className="p-2">
           <div className="flex items-center relative">
             <input

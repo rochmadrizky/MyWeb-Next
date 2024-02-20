@@ -1,7 +1,6 @@
-"use client";
 import React from "react";
 
-const BlogContent = () => {
+const IsiGame = () => {
   return (
     <div>
       <div></div>
@@ -9,4 +8,4 @@ const BlogContent = () => {
   );
 };
 
-export default BlogContent;
+export default IsiGame;

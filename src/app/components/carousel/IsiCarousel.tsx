@@ -3,7 +3,7 @@
 import { IconPlayerTrackNext, IconPlayerTrackPrev } from "@tabler/icons-react";
 import { useState, useRef } from "react";
 
-const IsiContent = () => {
+const IsiCarousel = () => {
   const konten = [
     {
       gambar:
@@ -151,4 +151,4 @@ const IsiContent = () => {
   );
 };
 
-export default IsiContent;
+export default IsiCarousel;

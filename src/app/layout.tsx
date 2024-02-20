@@ -5,6 +5,7 @@ import FotBar from "./components/navigasi/FotBar";
 
 export const metadata: Metadata = {
   title: "Rizky",
+  description: "Hi, what's up everyone, I'm Rizky Putra Front-End Developer",
 };
 
 export default function RootLayout({

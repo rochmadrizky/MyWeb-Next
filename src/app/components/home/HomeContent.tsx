@@ -7,6 +7,8 @@ const HomeContent = () => {
       <div className="p-4">
         <Image
           src="/me/thisIsMe.png"
+          width={1000}
+          height={1000}
           alt="saya"
           className="rounded-full mx-auto w-36 h-36 mb-3  ring-2 p-0.5 ring-black bg-gray-300"
         />
