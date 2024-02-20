@@ -14,13 +14,15 @@ const page = () => {
               <h1 className="font-prefix text-2xl">
                 The carousel slide I made.
               </h1>
-              <p className="font-description text-xl">Example below.</p>
+              <p className="font-description text-xl">
+                Following, Example below.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div>
+      <div className="py-12">
         <IsiCarousel />
       </div>
     </div>
