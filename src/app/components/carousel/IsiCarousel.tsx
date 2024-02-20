@@ -84,11 +84,11 @@ const IsiCarousel = () => {
 
     const perbedaan = posisiX - seretDariX;
 
-    if (perbedaan > 50 && indeksSaatIni !== konten.length - 1) {
-      selanjutnya();
-      mengaturSeretDariX(0);
-    } else if (perbedaan < -50 && indeksSaatIni !== 0) {
+    if (perbedaan > 50 && indeksSaatIni !== 0) {
       sebelumnya();
+      mengaturSeretDariX(0);
+    } else if (perbedaan < -50 && indeksSaatIni !== konten.length - 1) {
+      selanjutnya();
       mengaturSeretDariX(0);
     }
   };
