@@ -62,14 +62,28 @@ const IsiCarousel = () => {
     mengaturTitikAktif(pengechekan);
   };
 
-  const tekanMouse = (klik: React.MouseEvent<HTMLDivElement>) => {
-    mengaturSeretDariX(klik.pageX);
+  const tekanMouse = (
+    event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
+    if ("touches" in event) {
+      mengaturSeretDariX(event.touches[0].pageX);
+    } else {
+      mengaturSeretDariX(event.pageX);
+    }
   };
 
-  const pergerakanMouse = (geser: React.MouseEvent<HTMLDivElement>) => {
+  const pergerakanMouse = (
+    event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+  ) => {
     if (seretDariX === 0 || !penggeser.current) return;
 
-    const posisiX = geser.pageX;
+    let posisiX;
+    if ("touches" in event) {
+      posisiX = event.touches[0].pageX;
+    } else {
+      posisiX = event.pageX;
+    }
+
     const perbedaan = posisiX - seretDariX;
 
     if (perbedaan > 50 && indeksSaatIni !== konten.length - 1) {
@@ -108,6 +122,9 @@ const IsiCarousel = () => {
         onMouseDown={tekanMouse}
         onMouseMove={pergerakanMouse}
         onMouseUp={lepasKlikMouse}
+        onTouchStart={tekanMouse}
+        onTouchMove={pergerakanMouse}
+        onTouchEnd={lepasKlikMouse}
       >
         <button
           onClick={sebelumnya}
