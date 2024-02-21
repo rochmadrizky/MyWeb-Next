@@ -1,3 +1,5 @@
+import TodoList from "@/app/components/todolist/TodoList";
+
 import React from "react";
 
 const page = () => {
@@ -19,6 +21,10 @@ const page = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div>
+        <TodoList />
       </div>
     </div>
   );
