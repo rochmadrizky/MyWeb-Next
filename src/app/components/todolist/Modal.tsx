@@ -79,40 +79,37 @@ const Modal: React.FC<ModalProps> = ({
   if (!membuka) return null;
 
   return (
-    <div className="fixed z-10 inset-0 overflow-y-auto">
-      <div
-        className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 ${
-          membuka ? "visible" : "hidden"
-        }`}
-      >
-        <div ref={modal} className="w-72 md:w-96 top-20 rounded-lg absolute">
-          <div className="p-2">
-            <div className="flex items-center relative">
-              <h2 className="text-lg font-semibold mb-4">Add Todo</h2>
-              <input
-                ref={input}
-                type="text"
-                name="todolist"
-                placeholder="Add to-do list here"
-                className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
-                value={inputTeks}
-                onChange={handleChange}
-                onKeyPress={klikEnter}
-              />
+    <div
+      className={`fixed top-0 z-10 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 ${
+        membuka ? "visible" : "hidden"
+      }`}
+    >
+      <div ref={modal} className="w-72 md:w-96 top-20 rounded-lg absolute">
+        <div className="p-2">
+          <div className="flex items-center relative">
+            <input
+              ref={input}
+              type="text"
+              name="todolist"
+              placeholder="Add to-do list here"
+              className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
+              value={inputTeks}
+              onChange={handleChange}
+              onKeyPress={klikEnter}
+            />
 
-              <button
-                onClick={menanganiTambahkanTugas}
-                className={`px-3 py-2 absolute top-4 right-0 transform ${
-                  mengubahIcon ? "rotate-45" : ""
-                } transition duration-300`}
-              >
-                {mengubahIcon ? (
-                  <IconSend className=" -rotate-45" />
-                ) : (
-                  <IconWriting />
-                )}
-              </button>
-            </div>
+            <button
+              onClick={menanganiTambahkanTugas}
+              className={`px-3 py-2 absolute top-0 right-0 transform ${
+                mengubahIcon ? "rotate-45" : ""
+              } transition duration-300`}
+            >
+              {mengubahIcon ? (
+                <IconSend className=" -rotate-45" />
+              ) : (
+                <IconWriting />
+              )}
+            </button>
           </div>
         </div>
       </div>
