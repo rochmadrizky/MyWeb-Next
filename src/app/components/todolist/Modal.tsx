@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { IconSend, IconWriting } from "@tabler/icons-react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface ModalProps {
   membuka: boolean;
@@ -17,23 +18,24 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   const modal = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
+  const [mengubahIcon, mengaturMengubahIcon] = useState<boolean>(false);
 
   useEffect(() => {
     if (membuka && input.current) {
       input.current.focus();
     }
-  }, [membuka]);
 
-  useEffect(() => {
     const klikMoudeDiluar = (klik: MouseEvent) => {
       if (modal.current && !modal.current.contains(klik.target as Node)) {
         menutup();
+        mengaturMengubahIcon(false);
       }
     };
 
     const klikEscape = (klik: KeyboardEvent) => {
       if (klik.key === "Escape") {
         menutup();
+        mengaturMengubahIcon(false);
       }
     };
 
@@ -65,29 +67,52 @@ const Modal: React.FC<ModalProps> = ({
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.trim() === "") {
+      mengaturMengubahIcon(false);
+    } else {
+      mengaturMengubahIcon(true);
+    }
+    mengaturInputTeks(e.target.value);
+  };
+
   if (!membuka) return null;
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen">
-        <div ref={modal} className="bg-white p-8 rounded shadow-lg">
-          <h2 className="text-lg font-semibold mb-4">Add Todo</h2>
-          <input
-            ref={input}
-            type="text"
-            name="todolist"
-            className="py-2 px-3 mb-4 border border-gray-300 w-full"
-            value={inputTeks}
-            onChange={(e) => mengaturInputTeks(e.target.value)}
-            onKeyPress={klikEnter}
-          />
-          <div className="flex justify-end">
-            <button
-              className="py-2 px-4 bg-blue-500 text-white font-semibold hover:bg-blue-600 mr-2"
-              onClick={menanganiTambahkanTugas}
-            >
-              Add
-            </button>
+      <div
+        className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 ${
+          membuka ? "visible" : "hidden"
+        }`}
+      >
+        <div ref={modal} className="w-72 md:w-96 top-20 rounded-lg absolute">
+          <div className="p-2">
+            <div className="flex items-center relative">
+              <h2 className="text-lg font-semibold mb-4">Add Todo</h2>
+              <input
+                ref={input}
+                type="text"
+                name="todolist"
+                placeholder="Add to-do list here"
+                className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
+                value={inputTeks}
+                onChange={handleChange}
+                onKeyPress={klikEnter}
+              />
+
+              <button
+                onClick={menanganiTambahkanTugas}
+                className={`px-3 py-2 absolute top-4 right-0 transform ${
+                  mengubahIcon ? "rotate-45" : ""
+                } transition duration-300`}
+              >
+                {mengubahIcon ? (
+                  <IconSend className=" -rotate-45" />
+                ) : (
+                  <IconWriting />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

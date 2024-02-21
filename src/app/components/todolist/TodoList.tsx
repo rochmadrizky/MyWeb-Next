@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Modal from "./Modal";
+import { IconClick, IconHandClick } from "@tabler/icons-react";
 
 const TodoList = () => {
   const [tugas, mengaturTugas] = useState<string[]>([]);
@@ -24,18 +25,26 @@ const TodoList = () => {
 
   return (
     <div className="max-w-md mx-auto my-8">
-      <div className="mb-4 text-center">
-        <h1 className="text-xl font-bold">To-Do List</h1>
-        <p>masih proses pengerjaan</p>
+      <div className="bg-gray-100 shadow-lg rounded-lg border-t-2 border-b-2 border-blue-500">
+        <div className="flex flex-col items-center justify-center p-4">
+          <div className="p-2 text-center">
+            <h1 className="text-xl font-bold">To-do list or whatever</h1>
+            <p>Want to add to the list of dependents?</p>
+            <p>Please click the button below.</p>
+          </div>
+
+          <div className="flex items-center justify-center p-2">
+            <button
+              className="py-2 px-6 rounded-lg border-t-2 border-b-2 border-blue-500 bg-gray-200"
+              onClick={() => mengaturMembukaModal(true)}
+            >
+              <IconClick className="hidden lg:block text-blue-500" />
+              <IconHandClick className=" block lg:hidden text-blue-500" />
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="flex items-center justify-center">
-        <button
-          className="py-2 px-4 bg-blue-500 text-white font-semibold hover:bg-blue-600"
-          onClick={() => mengaturMembukaModal(true)}
-        >
-          Add Todo
-        </button>
-      </div>
+
       <ul className="mt-4 px-8">
         {tugas.map((urutan, list) => (
           <li
@@ -52,6 +61,7 @@ const TodoList = () => {
           </li>
         ))}
       </ul>
+
       <Modal
         membuka={membukaModal}
         menutup={menutupModal}
