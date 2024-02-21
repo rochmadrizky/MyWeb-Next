@@ -12,7 +12,7 @@ const IsiContent = () => {
       icon: <IconCode />,
       judul: "Coding.",
       deskripsi:
-        "Every day I always conduct website display coding experiments, and don't forget to record them on my <a href='/blogs' class='text-blue-500 text-xl'>Blogs</a> page.",
+        "Every day I always conduct website display coding experiments, and don't forget to record them on my <a href='/blogs' class='text-blue-500'>Blogs</a> page.",
     },
     {
       icon: <IconCoffee />,
@@ -40,7 +40,7 @@ const IsiContent = () => {
         {konten.map((isi, urutan) => (
           <div
             key={urutan}
-            className="bg-gray-100 border-b-2 border-blue-500 rounded-lg shadow-md"
+            className="bg-gray-100 border-t-2 border-b-2 border-blue-500 rounded-lg shadow-md"
           >
             <div className="flex items-center justify-center">
               <div className="p-8">

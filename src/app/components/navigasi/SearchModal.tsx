@@ -15,11 +15,15 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
   const halamanInfo: Record<string, { deskripsi: string; link: string }> = {
     Abouts: { deskripsi: "Related things about me.", link: "/abouts" },
     Blogs: { deskripsi: "My blog notes are all here.", link: "/blogs" },
-    Home: { deskripsi: "My introduction section or main page", link: "/" },
-    Game: { deskripsi: "I made a simple TicTacToe game", link: "/games" },
+    Home: { deskripsi: "My introduction section or main page.", link: "/" },
+    Game: { deskripsi: "I made a simple TicTacToe game.", link: "/games" },
     Carousel: {
-      deskripsi: "Slide carousel content section",
+      deskripsi: "Slide carousel content section.",
       link: "/carousel",
+    },
+    TodoList: {
+      deskripsi: "To write or note down a list of tasks.",
+      link: "/todolist",
     },
   };
 
