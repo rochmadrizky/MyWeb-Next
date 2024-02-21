@@ -4,22 +4,22 @@ import { useState } from "react";
 import Modal from "./Modal";
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<string[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [tugas, mengaturTugas] = useState<string[]>([]);
+  const [membukaModal, mengaturMembukaModal] = useState<boolean>(false);
+  const [input, mengaturResetInput] = useState<string>("");
 
-  const handleAddTodo = (todo: string) => {
-    setTodos([todo, ...todos]);
+  const mengurutkanTugas = (mengurutkan: string) => {
+    mengaturTugas([mengurutkan, ...tugas]);
   };
 
-  const handleRemoveTodo = (index: number) => {
-    const newTodos = todos.filter((_, i) => i !== index);
-    setTodos(newTodos);
+  const hapusListTugas = (index: number) => {
+    const tugasBaru = tugas.filter((_, i) => i !== index);
+    mengaturTugas(tugasBaru);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setInputValue("");
+  const menutupModal = () => {
+    mengaturMembukaModal(false);
+    mengaturResetInput("");
   };
 
   return (
@@ -31,21 +31,21 @@ const TodoList = () => {
       <div className="flex items-center justify-center">
         <button
           className="py-2 px-4 bg-blue-500 text-white font-semibold hover:bg-blue-600"
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => mengaturMembukaModal(true)}
         >
           Add Todo
         </button>
       </div>
       <ul className="mt-4 px-8">
-        {todos.map((todo, index) => (
+        {tugas.map((urutan, list) => (
           <li
-            key={index}
+            key={list}
             className="flex justify-between items-center py-2 border-b border-gray-300"
           >
-            <span>{todo}</span>
+            <span>{urutan}</span>
             <button
               className="text-red-500 hover:text-red-600"
-              onClick={() => handleRemoveTodo(index)}
+              onClick={() => hapusListTugas(list)}
             >
               Delete
             </button>
@@ -53,14 +53,14 @@ const TodoList = () => {
         ))}
       </ul>
       <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onAddTodo={(todo) => {
-          handleAddTodo(todo);
-          handleCloseModal();
+        membuka={membukaModal}
+        menutup={menutupModal}
+        menambahkanTugas={(tugas) => {
+          mengurutkanTugas(tugas);
+          menutupModal();
         }}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
+        inputTeks={input}
+        mengaturInputTeks={mengaturResetInput}
       />
     </div>
   );

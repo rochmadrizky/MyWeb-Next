@@ -1,101 +1,92 @@
 import { useEffect, useRef } from "react";
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onAddTodo: (todo: string) => void;
-  inputValue: string;
-  setInputValue: (value: string) => void;
+  membuka: boolean;
+  menutup: () => void;
+  menambahkanTugas: (todo: string) => void;
+  inputTeks: string;
+  mengaturInputTeks: (value: string) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  onAddTodo,
-  inputValue,
-  setInputValue,
+  membuka,
+  menutup,
+  menambahkanTugas,
+  inputTeks,
+  mengaturInputTeks,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const modal = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (membuka && input.current) {
+      input.current.focus();
     }
-  }, [isOpen]);
+  }, [membuka]);
 
   useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
+    const klikMoudeDiluar = (klik: MouseEvent) => {
+      if (modal.current && !modal.current.contains(klik.target as Node)) {
+        menutup();
       }
     };
 
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
+    const klikEscape = (klik: KeyboardEvent) => {
+      if (klik.key === "Escape") {
+        menutup();
       }
     };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleOutsideClick);
-      document.addEventListener("keydown", handleEscapeKey);
+    if (membuka) {
+      document.addEventListener("mousedown", klikMoudeDiluar);
+      document.addEventListener("keydown", klikEscape);
     } else {
-      document.removeEventListener("mousedown", handleOutsideClick);
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("mousedown", klikMoudeDiluar);
+      document.removeEventListener("keydown", klikEscape);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("mousedown", klikMoudeDiluar);
+      document.removeEventListener("keydown", klikEscape);
     };
-  }, [isOpen, onClose]);
+  }, [membuka]);
 
-  const handleAddTodo = () => {
-    if (inputValue.trim() !== "") {
-      onAddTodo(inputValue);
-      setInputValue("");
-      onClose();
+  const menanganiTambahkanTugas = () => {
+    if (inputTeks.trim() !== "") {
+      menambahkanTugas(inputTeks);
+      mengaturInputTeks("");
+      menutup();
     }
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleAddTodo();
+  const klikEnter = (klik: React.KeyboardEvent<HTMLInputElement>) => {
+    if (klik.key === "Enter") {
+      menanganiTambahkanTugas();
     }
   };
 
-  if (!isOpen) return null;
+  if (!membuka) return null;
 
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen">
-        <div ref={modalRef} className="bg-white p-8 rounded shadow-lg">
+        <div ref={modal} className="bg-white p-8 rounded shadow-lg">
           <h2 className="text-lg font-semibold mb-4">Add Todo</h2>
           <input
-            ref={inputRef}
+            ref={input}
             type="text"
             name="todolist"
             className="py-2 px-3 mb-4 border border-gray-300 w-full"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
+            value={inputTeks}
+            onChange={(e) => mengaturInputTeks(e.target.value)}
+            onKeyPress={klikEnter}
           />
           <div className="flex justify-end">
             <button
               className="py-2 px-4 bg-blue-500 text-white font-semibold hover:bg-blue-600 mr-2"
-              onClick={handleAddTodo}
+              onClick={menanganiTambahkanTugas}
             >
               Add
-            </button>
-            <button
-              className="py-2 px-4 bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300"
-              onClick={onClose}
-            >
-              Cancel
             </button>
           </div>
         </div>
