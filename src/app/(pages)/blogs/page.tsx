@@ -14,7 +14,9 @@ const Page = () => {
               <h1 className="font-prefix text-2xl">
                 A collection of my blog notes.
               </h1>
-              <p className="font-description text-xl">Here are my notes.</p>
+              <p className="font-description text-xl">
+                This is where all my experiments are recorded.
+              </p>
             </div>
           </div>
         </div>
