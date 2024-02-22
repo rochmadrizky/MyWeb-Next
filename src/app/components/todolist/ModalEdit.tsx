@@ -2,75 +2,87 @@ import React, { useState, useEffect, useRef } from "react";
 
 interface ModalEditProps {
   membuka: boolean;
-  konfirmasiEdit: (editedTask: string) => void;
+  konfirmasiEdit: (editTugas: string) => void;
   batalEdit: () => void;
-  task: string;
+  tugas: string;
 }
 
 const ModalEdit: React.FC<ModalEditProps> = ({
   membuka,
   konfirmasiEdit,
   batalEdit,
-  task,
+  tugas,
 }) => {
-  const [editedTask, setEditedTask] = useState<string>(task || "");
+  const [editListTugas, mengaturEditListTugas] = useState<string>(tugas || "");
+  const [pesanError, mengaturPesanError] = useState<string>("");
 
   useEffect(() => {
-    setEditedTask(task || "");
-  }, [task]);
+    mengaturEditListTugas(tugas || "");
+  }, [tugas]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedTask(event.target.value);
+  const mengaturPerubahan = (list: React.ChangeEvent<HTMLInputElement>) => {
+    mengaturEditListTugas(list.target.value);
+    mengaturPesanError("");
   };
 
-  const handleEdit = () => {
-    konfirmasiEdit(editedTask);
-    setEditedTask("");
+  const mengaturEdit = () => {
+    if (editListTugas.trim() !== "") {
+      konfirmasiEdit(editListTugas);
+      mengaturEditListTugas("");
+    } else {
+      mengaturPesanError("cannot save if empty");
+    }
   };
 
-  const handleCancel = () => {
+  const mengaturBatal = () => {
     batalEdit();
-    setEditedTask("");
+    mengaturEditListTugas("");
+    mengaturPesanError("");
   };
 
-  const modalRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null); // Menambahkan ref untuk input
+  const modal = useRef<HTMLDivElement>(null);
+  const input = useRef<HTMLInputElement>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+  const klikDiLuar = (klik: MouseEvent) => {
+    if (modal.current && !modal.current.contains(klik.target as Node)) {
       batalEdit();
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
+  const klikEscape = (klik: KeyboardEvent) => {
+    if (klik.key === "Escape") {
       batalEdit();
     }
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleEdit();
+  const klikEnter = (klik: React.KeyboardEvent<HTMLInputElement>) => {
+    if (klik.key === "Enter") {
+      mengaturEdit();
     }
   };
 
   useEffect(() => {
     if (membuka) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("mousedown", klikDiLuar);
+      document.addEventListener("keydown", klikEscape);
 
-      // Fokus otomatis pada input saat modal terbuka
-      if (inputRef.current) {
-        inputRef.current.focus();
+      if (input.current) {
+        input.current.focus();
       }
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", klikDiLuar);
+      document.removeEventListener("keydown", klikEscape);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", klikDiLuar);
+      document.removeEventListener("keydown", klikEscape);
     };
+  }, [membuka]);
+
+  useEffect(() => {
+    if (!membuka) {
+      mengaturPesanError("");
+    }
   }, [membuka]);
 
   return (
@@ -79,32 +91,40 @@ const ModalEdit: React.FC<ModalEditProps> = ({
         membuka ? "visible" : "hidden"
       }`}
     >
-      <div ref={modalRef} className="w-72 md:w-96 bg-gray-100 p-4 rounded-lg">
+      <div
+        ref={modal}
+        className="w-72 md:w-96 bg-gray-100 border-t-2 border-b-2 border-blue-500 p-4 rounded-lg"
+      >
         <div className="p-4">
           <h2 className="text-lg font-bold mb-4">Edit Task</h2>
           <input
-            ref={inputRef}
+            ref={input}
             className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2 bg-gray-200"
             name="edit"
             placeholder="Change items here"
             type="text"
-            value={editedTask}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            value={editListTugas}
+            onChange={mengaturPerubahan}
+            onKeyPress={klikEnter}
           />
+          {pesanError && membuka && (
+            <p className="text-blue-300 text-sm pt-2 text-center">
+              {pesanError}
+            </p>
+          )}
         </div>
 
-        <div className="flex items-center justify-between p-2">
+        <div className="flex items-center justify-between">
           <button
             className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
-            onClick={handleEdit}
+            onClick={mengaturEdit}
           >
             Save
           </button>
 
           <button
             className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
-            onClick={handleCancel}
+            onClick={mengaturBatal}
           >
             Cancel
           </button>

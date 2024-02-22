@@ -11,35 +11,32 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
   konfirmasiHapus,
   batalHapus,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modal = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
+    const klikDiLuar = (klik: MouseEvent) => {
+      if (modal.current && !modal.current.contains(klik.target as Node)) {
         batalHapus();
       }
     };
 
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+    const klikEscape = (klik: KeyboardEvent) => {
+      if (klik.key === "Escape") {
         batalHapus();
       }
     };
 
     if (membuka) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleEscapeKey);
+      document.addEventListener("mousedown", klikDiLuar);
+      document.addEventListener("keydown", klikEscape);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("mousedown", klikDiLuar);
+      document.removeEventListener("keydown", klikEscape);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("mousedown", klikDiLuar);
+      document.removeEventListener("keydown", klikEscape);
     };
   }, [membuka, batalHapus]);
 
@@ -48,7 +45,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
   return (
     <div className="fixed top-0 z-10 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70">
       <div
-        ref={modalRef}
+        ref={modal}
         className="bg-gray-100 p-6 rounded-lg border-t-2 border-b-2 border-blue-500"
       >
         <div className="p-4">

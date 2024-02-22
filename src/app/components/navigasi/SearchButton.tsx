@@ -40,10 +40,14 @@ const SearchButton: React.FC = () => {
       <button
         onClick={membukaModal}
         className={`transform ${
-          putarIcon ? "rotate-90" : ""
+          putarIcon ? "rotate-45" : ""
         } transition duration-300`}
       >
-        {modalTerbuka ? <IconZoomOutArea /> : <IconSearch />}
+        {modalTerbuka ? (
+          <IconZoomOutArea className=" -rotate-45" />
+        ) : (
+          <IconSearch />
+        )}
       </button>
       <SearchModal membuka={modalTerbuka} menutup={menutupModal} />
     </div>

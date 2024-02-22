@@ -13,54 +13,56 @@ import {
 
 const TodoList = () => {
   const [tugas, mengaturTugas] = useState<string[]>([]);
-  const [membukaModalTambah, setMembukaModalTambah] = useState<boolean>(false);
+  const [membukaModalTambah, mengaturMembukaModalTambah] =
+    useState<boolean>(false);
   const [input, mengaturInput] = useState<string>("");
-  const [indeksHapus, setIndeksHapus] = useState<number>(-1);
-  const [membukaModalHapus, setMembukaModalHapus] = useState<boolean>(false);
-  const [indeksEdit, setIndeksEdit] = useState<number>(-1);
-  const [membukaModalEdit, setMembukaModalEdit] = useState<boolean>(false);
+  const [indeksHapus, mengaturIndeksHapus] = useState<number>(-1);
+  const [membukaModalHapus, mengaturMembukaModalHapus] =
+    useState<boolean>(false);
+  const [indeksEdit, mengaturIndeksEdit] = useState<number>(-1);
+  const [membukaModalEdit, mengaturMembukaModalEdit] = useState<boolean>(false);
 
   const mengurutkanTugas = (mengurutkan: string) => {
     mengaturTugas([mengurutkan, ...tugas]);
   };
 
-  const hapusListTugas = (index: number) => {
-    setIndeksHapus(index);
-    setMembukaModalHapus(true);
+  const hapusListTugas = (listTugas: number) => {
+    mengaturIndeksHapus(listTugas);
+    mengaturMembukaModalHapus(true);
   };
 
-  const editListTugas = (index: number) => {
-    setIndeksEdit(index);
-    setMembukaModalEdit(true);
+  const editListTugas = (tugas: number) => {
+    mengaturIndeksEdit(tugas);
+    mengaturMembukaModalEdit(true);
   };
 
   const konfirmasiHapus = () => {
     const tugasBaru = tugas.filter((_, i) => i !== indeksHapus);
     mengaturTugas(tugasBaru);
-    setMembukaModalHapus(false);
-    setIndeksHapus(-1);
+    mengaturMembukaModalHapus(false);
+    mengaturIndeksHapus(-1);
   };
 
-  const konfirmasiEdit = (editedTask: string) => {
+  const konfirmasiEdit = (editTugas: string) => {
     const tugasBaru = [...tugas];
-    tugasBaru[indeksEdit] = editedTask;
+    tugasBaru[indeksEdit] = editTugas;
     mengaturTugas(tugasBaru);
-    setMembukaModalEdit(false);
-    setIndeksEdit(-1);
+    mengaturMembukaModalEdit(false);
+    mengaturIndeksEdit(-1);
   };
 
   const batalHapus = () => {
-    setMembukaModalHapus(false);
-    setIndeksHapus(-1);
+    mengaturMembukaModalHapus(false);
+    mengaturIndeksHapus(-1);
   };
 
   const batalEdit = () => {
-    setMembukaModalEdit(false);
-    setIndeksEdit(-1);
+    mengaturMembukaModalEdit(false);
+    mengaturIndeksEdit(-1);
   };
 
   const menutupModalTambah = () => {
-    setMembukaModalTambah(false);
+    mengaturMembukaModalTambah(false);
     mengaturInput("");
   };
 
@@ -79,7 +81,7 @@ const TodoList = () => {
               <div className="flex items-center justify-center p-2">
                 <button
                   className="py-2 px-6 rounded-lg border-t-2 border-b-2 border-blue-500 bg-gray-200"
-                  onClick={() => setMembukaModalTambah(true)}
+                  onClick={() => mengaturMembukaModalTambah(true)}
                 >
                   <IconClick className="hidden lg:block text-blue-500" />
                   <IconHandClick className=" block lg:hidden text-blue-500" />
@@ -146,7 +148,7 @@ const TodoList = () => {
           membuka={membukaModalEdit}
           konfirmasiEdit={konfirmasiEdit}
           batalEdit={batalEdit}
-          task={tugas[indeksEdit]} // Mengirimkan task yang akan diedit ke modal
+          task={tugas[indeksEdit]}
         />
       </div>
 
