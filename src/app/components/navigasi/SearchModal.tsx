@@ -157,7 +157,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
               onChange={mengubahKolomInput}
               onKeyDown={menanganiTombol}
               placeholder="Please search here"
-              className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2"
+              className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2 bg-gray-100"
             />
 
             <button

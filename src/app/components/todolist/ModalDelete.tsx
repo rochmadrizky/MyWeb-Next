@@ -56,7 +56,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
         </div>
         <div className="flex items-center justify-between p-2">
           <button
-            className="mr-2 px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
+            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
             onClick={() => {
               konfirmasiHapus();
             }}
