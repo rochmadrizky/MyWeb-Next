@@ -2,25 +2,40 @@
 
 import { useState } from "react";
 import Modal from "./Modal";
+import ModalDelete from "./ModalDelete";
 import { IconClick, IconHandClick } from "@tabler/icons-react";
 
 const TodoList = () => {
   const [tugas, mengaturTugas] = useState<string[]>([]);
-  const [membukaModal, mengaturMembukaModal] = useState<boolean>(false);
-  const [input, mengaturResetInput] = useState<string>("");
+  const [membukaModalTambah, setMembukaModalTambah] = useState<boolean>(false);
+  const [input, mengaturInput] = useState<string>("");
+  const [indeksHapus, setIndeksHapus] = useState<number>(-1);
+  const [membukaModalHapus, setMembukaModalHapus] = useState<boolean>(false);
 
   const mengurutkanTugas = (mengurutkan: string) => {
     mengaturTugas([mengurutkan, ...tugas]);
   };
 
   const hapusListTugas = (index: number) => {
-    const tugasBaru = tugas.filter((_, i) => i !== index);
-    mengaturTugas(tugasBaru);
+    setIndeksHapus(index);
+    setMembukaModalHapus(true);
   };
 
-  const menutupModal = () => {
-    mengaturMembukaModal(false);
-    mengaturResetInput("");
+  const konfirmasiHapus = () => {
+    const tugasBaru = tugas.filter((_, i) => i !== indeksHapus);
+    mengaturTugas(tugasBaru);
+    setMembukaModalHapus(false);
+    setIndeksHapus(-1);
+  };
+
+  const batalHapus = () => {
+    setMembukaModalHapus(false);
+    setIndeksHapus(-1);
+  };
+
+  const menutupModalTambah = () => {
+    setMembukaModalTambah(false);
+    mengaturInput("");
   };
 
   return (
@@ -37,7 +52,7 @@ const TodoList = () => {
             <div className="flex items-center justify-center p-2">
               <button
                 className="py-2 px-6 rounded-lg border-t-2 border-b-2 border-blue-500 bg-gray-200"
-                onClick={() => mengaturMembukaModal(true)}
+                onClick={() => setMembukaModalTambah(true)}
               >
                 <IconClick className="hidden lg:block text-blue-500" />
                 <IconHandClick className=" block lg:hidden text-blue-500" />
@@ -65,14 +80,20 @@ const TodoList = () => {
       </ul>
 
       <Modal
-        membuka={membukaModal}
-        menutup={menutupModal}
+        membuka={membukaModalTambah}
+        menutup={menutupModalTambah}
         menambahkanTugas={(tugas) => {
           mengurutkanTugas(tugas);
-          menutupModal();
+          menutupModalTambah();
         }}
         inputTeks={input}
-        mengaturInputTeks={mengaturResetInput}
+        mengaturInputTeks={mengaturInput}
+      />
+
+      <ModalDelete
+        membuka={membukaModalHapus}
+        konfirmasiHapus={konfirmasiHapus}
+        batalHapus={batalHapus}
       />
     </div>
   );
