@@ -25,18 +25,6 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       deskripsi: "To write or note down a list of tasks.",
       link: "/todolist",
     },
-    Twitter: {
-      deskripsi: "My twitter or x account.",
-      link: "https://twitter.com/rizkyeverr",
-    },
-    Instagram: {
-      deskripsi: "My instagram social account.",
-      link: "https://www.instagram.com/rizkyever/",
-    },
-    Contact: {
-      deskripsi: "Contact me via email.",
-      link: "mailto:rochmadrizkyputra@gmail.com",
-    },
   };
 
   const modal = useRef<HTMLDivElement>(null);
@@ -111,11 +99,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
     if (opsi !== "results not found") {
       const halaman = halamanInfo[opsi];
       if (halaman) {
-        if (opsi === "Twitter" || opsi === "Instagram") {
-          window.open(halaman.link, "_blank");
-        } else {
-          window.location.href = halaman.link;
-        }
+        window.location.href = halaman.link;
       }
       mengaturSearch("");
     }
