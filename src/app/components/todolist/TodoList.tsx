@@ -73,9 +73,13 @@ const TodoList = () => {
           <div className="bg-gray-100 rounded-lg border-t-2 border-b-2 border-blue-500">
             <div className="flex flex-col items-center justify-center p-4">
               <div className="p-2 text-center">
-                <h1 className="text-xl font-bold">To-do list or whatever</h1>
-                <p>Want to add to the list of dependents?</p>
-                <p>Please click the button below.</p>
+                <h1 className="text-xl font-prefix">To-do list or whatever</h1>
+                <p className="font-description">
+                  Want to add to the list of dependents?
+                </p>
+                <p className="font-description">
+                  Please click the button below.
+                </p>
               </div>
 
               <div className="flex items-center justify-center p-2">
@@ -94,13 +98,15 @@ const TodoList = () => {
         <div className="p-8">
           <div className="p-4 bg-gray-100 border-t-2 border-b-2 border-blue-500 rounded-lg">
             <div className="text-center p-4">
-              <h1 className="text-xl font-bold">Note your list</h1>
-              <p>The to-do list or whatever, you wrote will appear here.</p>
+              <h1 className="text-xl font-prefix">Note your list</h1>
+              <p className="font-description">
+                The to-do list or whatever, you wrote will appear here.
+              </p>
             </div>
 
             <div className="p-4 bg-gray-200 rounded-lg">
               {tugas.length === 0 && (
-                <p className="p-2 text-gray-400 text-center rounded-xl">
+                <p className="p-2 text-gray-400 text-center rounded-xl font-description">
                   For now it is still empty
                 </p>
               )}
@@ -110,7 +116,7 @@ const TodoList = () => {
                   key={list}
                   className="flex justify-between items-center py-2 border-b border-blue-500 rounded-lg"
                 >
-                  <span>{urutan}</span>
+                  <span className="font-description">{urutan}</span>
 
                   <div className="flex items-center gap-2">
                     <button onClick={() => editListTugas(list)}>

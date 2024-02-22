@@ -139,10 +139,10 @@ const IsiCarousel = () => {
         >
           <div className="bg-black bg-opacity-60 w-full h-full flex flex-col items-center justify-center relative">
             <div className="text-center text-white p-4">
-              <h2 className="text-xl md:text-4xl font-bold mb-4">
+              <h2 className="font-prefix text-xl md:text-4xl font-bold mb-4">
                 {konten[indeksSaatIni].judul}
               </h2>
-              <p className=" text-base md:text-2xl">
+              <p className="font-description text-base md:text-2xl">
                 {konten[indeksSaatIni].deskripsi}
               </p>
             </div>
