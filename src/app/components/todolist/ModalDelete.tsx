@@ -1,56 +1,56 @@
-import { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 interface ModalDeleteProps {
   membuka: boolean;
   konfirmasiHapus: () => void;
   batalHapus: () => void;
-  onClose: () => void;
 }
 
 const ModalDelete: React.FC<ModalDeleteProps> = ({
   membuka,
   konfirmasiHapus,
   batalHapus,
-  onClose,
 }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const handleCloseModal = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
-        event.target instanceof HTMLElement &&
-        !event.target.closest(".modal-content")
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
       ) {
-        onClose();
+        batalHapus();
       }
     };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
-      } else if (event.key === "y" || event.key === "Y") {
-        konfirmasiHapus();
-        onClose();
-      } else if (event.key === "t" || event.key === "T") {
         batalHapus();
-        onClose();
       }
     };
 
     if (membuka) {
-      document.body.addEventListener("click", handleCloseModal);
-      document.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
     }
 
     return () => {
-      document.body.removeEventListener("click", handleCloseModal);
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
-  }, [membuka, onClose, konfirmasiHapus, batalHapus]);
+  }, [membuka, batalHapus]);
 
   if (!membuka) return null;
 
   return (
     <div className="fixed top-0 z-10 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70">
-      <div className="bg-gray-100 p-6 rounded-lg border-t-2 border-b-2 border-blue-500">
+      <div
+        ref={modalRef}
+        className="bg-gray-100 p-6 rounded-lg border-t-2 border-b-2 border-blue-500"
+      >
         <div className="p-4">
           <p>Do you want to delete this item?</p>
         </div>
@@ -59,7 +59,6 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
             className="mr-2 px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
             onClick={() => {
               konfirmasiHapus();
-              onClose();
             }}
           >
             Yes
@@ -69,7 +68,6 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
             className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
             onClick={() => {
               batalHapus();
-              onClose();
             }}
           >
             No
