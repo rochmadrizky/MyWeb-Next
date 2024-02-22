@@ -1,4 +1,8 @@
-import { IconBrandInstagram, IconMail } from "@tabler/icons-react";
+import {
+  IconBrandInstagram,
+  IconBrandTwitter,
+  IconMail,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
 
@@ -13,6 +17,10 @@ const FotBar = () => {
     {
       icon: <IconMail className="stroke-1" />,
       link: "mailto:rochmadrizkyputra@gmail.com",
+    },
+    {
+      icon: <IconBrandTwitter className="stroke-1" />,
+      link: "https://twitter.com/rizkyeverr",
     },
   ];
 
