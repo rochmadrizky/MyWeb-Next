@@ -94,6 +94,7 @@ const TodoList = () => {
         membuka={membukaModalHapus}
         konfirmasiHapus={konfirmasiHapus}
         batalHapus={batalHapus}
+        onClose={() => setMembukaModalHapus(false)}
       />
     </div>
   );
