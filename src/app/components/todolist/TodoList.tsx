@@ -148,7 +148,7 @@ const TodoList = () => {
           membuka={membukaModalEdit}
           konfirmasiEdit={konfirmasiEdit}
           batalEdit={batalEdit}
-          task={tugas[indeksEdit]}
+          tugas={tugas[indeksEdit]}
         />
       </div>
 
