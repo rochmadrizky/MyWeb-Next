@@ -50,7 +50,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
 
   return (
     <div className="fixed top-0 z-10 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70">
-      <div className="bg-white p-6 rounded-lg border-t-2 border-b-2 border-blue-500 modal-content">
+      <div className="bg-gray-100 p-6 rounded-lg border-t-2 border-b-2 border-blue-500">
         <div className="p-4">
           <p>Do you want to delete this item?</p>
         </div>
