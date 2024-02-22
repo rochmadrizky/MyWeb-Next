@@ -67,7 +67,7 @@ const TodoList = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-8">
+    <div className="flex flex-col items-center justify-center ">
       <div className="flex flex-col md:flex-row items-center justify-center">
         <div className="p-8">
           <div className="bg-gray-100 rounded-lg border-t-2 border-b-2 border-blue-500">

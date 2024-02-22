@@ -23,7 +23,7 @@ const page = () => {
         </div>
       </div>
 
-      <div>
+      <div className="py-12">
         <TodoList />
       </div>
     </div>

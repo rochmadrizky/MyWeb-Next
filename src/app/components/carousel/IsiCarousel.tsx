@@ -115,7 +115,7 @@ const IsiCarousel = () => {
   return (
     <div>
       <div
-        className="md:max-w-[1400px] md:h-[480px] h-[380px] w-full m-auto px-4 flex items-center justify-center gap-1"
+        className="md:max-w-[1400px] md:h-[480px] h-[380px] w-full mx-auto px-4 flex items-center justify-center gap-1"
         ref={penggeser}
         onMouseDown={tekanMouse}
         onMouseMove={pergerakanMouse}

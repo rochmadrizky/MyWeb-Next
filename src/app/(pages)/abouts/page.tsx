@@ -20,6 +20,10 @@ const Page = () => {
           </div>
         </div>
       </div>
+
+      <div className="py-12">
+        <AboutContent />
+      </div>
     </div>
   );
 };
