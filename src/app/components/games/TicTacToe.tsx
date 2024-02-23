@@ -108,7 +108,7 @@ const TicTacToe: React.FC = () => {
         ) : (
           <div className="pb-4">
             <span className="font-prefix">
-              Click 'Start Game' to get started!
+              Click &apos;Start Game&apos; to get started!
             </span>
           </div>
         )}
@@ -148,9 +148,9 @@ const TicTacToe: React.FC = () => {
         <div className="p-8 max-w-lg">
           <h1 className="font-prefix text-2xl">Notes:</h1>
           <p className="font-description">
-            You will play with machines or robots, because it's impossible for
-            you to switch cellphones with your friends to play this game, right?
-            haha..
+            You will play with machines or robots, because it&apos;s impossible
+            for you to switch cellphones with your friends to play this game,
+            right? haha..
           </p>
         </div>
       </div>
