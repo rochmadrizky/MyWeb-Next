@@ -1,4 +1,3 @@
-import TicTacToe from "@/app/components/games/TicTacToe";
 import React from "react";
 
 const page = () => {
