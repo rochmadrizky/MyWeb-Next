@@ -1,5 +1,4 @@
 import React from "react";
-import AboutContent from "../../components/abouts/AboutContent";
 
 const Page = () => {
   return (
@@ -21,9 +20,7 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="py-12">
-        <AboutContent />
-      </div>
+      <div className="py-12"></div>
     </div>
   );
 };

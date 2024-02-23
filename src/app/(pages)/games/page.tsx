@@ -1,3 +1,4 @@
+import TicTacToe from "@/app/components/games/TicTacToe";
 import React from "react";
 
 const page = () => {
@@ -16,6 +17,8 @@ const page = () => {
           </div>
         </div>
       </div>
+
+      <div className="py-12"></div>
     </div>
   );
 };

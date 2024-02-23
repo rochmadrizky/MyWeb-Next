@@ -1,5 +1,4 @@
 import React from "react";
-import BlogContent from "../../components/blogs/BlogContent";
 
 const Page = () => {
   return (
@@ -21,6 +20,8 @@ const Page = () => {
           </div>
         </div>
       </div>
+
+      <div className="py-12"></div>
     </div>
   );
 };
