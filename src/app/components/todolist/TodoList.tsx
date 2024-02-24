@@ -4,11 +4,13 @@ import { useState } from "react";
 import Modal from "./Modal";
 import ModalDelete from "./ModalDelete";
 import ModalEdit from "./ModalEdit";
+import ModalDeleteAll from "./ModalDeleteAll";
 import {
   IconClick,
   IconHandClick,
   IconEdit,
   IconTrash,
+  IconClearAll,
 } from "@tabler/icons-react";
 
 const TodoList = () => {
@@ -21,9 +23,19 @@ const TodoList = () => {
     useState<boolean>(false);
   const [indeksEdit, mengaturIndeksEdit] = useState<number>(-1);
   const [membukaModalEdit, mengaturMembukaModalEdit] = useState<boolean>(false);
+  const [semuaDipilih, mengaturSemuaDipilih] = useState<boolean>(false);
+  const [pilihanItem, mengaturPilihanItem] = useState<boolean[]>([]);
+
+  const [membukaModalKonfirmasi, mengaturMembukaModalKonfirmasi] =
+    useState(false);
+
+  const tampilkanModalKonfirmasi = () => {
+    mengaturMembukaModalKonfirmasi(true);
+  };
 
   const mengurutkanTugas = (mengurutkan: string) => {
     mengaturTugas([mengurutkan, ...tugas]);
+    mengaturPilihanItem([false, ...pilihanItem]);
   };
 
   const hapusListTugas = (listTugas: number) => {
@@ -38,7 +50,9 @@ const TodoList = () => {
 
   const konfirmasiHapus = () => {
     const tugasBaru = tugas.filter((_, i) => i !== indeksHapus);
+    const pilihanBaru = pilihanItem.filter((_, i) => i !== indeksHapus);
     mengaturTugas(tugasBaru);
+    mengaturPilihanItem(pilihanBaru);
     mengaturMembukaModalHapus(false);
     mengaturIndeksHapus(-1);
   };
@@ -64,6 +78,29 @@ const TodoList = () => {
   const menutupModalTambah = () => {
     mengaturMembukaModalTambah(false);
     mengaturInput("");
+  };
+
+  const chekboxPilihSemua = () => {
+    const seleksiBaru = !semuaDipilih;
+    mengaturSemuaDipilih(seleksiBaru);
+    mengaturPilihanItem(pilihanItem.map(() => seleksiBaru));
+  };
+
+  const chekboxPilihItem = (index: number) => {
+    const seleksiBaru = !pilihanItem[index];
+    mengaturPilihanItem([
+      ...pilihanItem.slice(0, index),
+      seleksiBaru,
+      ...pilihanItem.slice(index + 1),
+    ]);
+  };
+
+  const hapusSemuaTugasTerpilih = () => {
+    const tugasBaru = tugas.filter((_, i) => !pilihanItem[i]);
+    const pilihanBaru = pilihanItem.filter((_, i) => !pilihanItem[i]);
+    mengaturTugas(tugasBaru);
+    mengaturPilihanItem(pilihanBaru);
+    mengaturSemuaDipilih(false);
   };
 
   return (
@@ -111,14 +148,52 @@ const TodoList = () => {
                 </p>
               )}
 
+              {tugas.length > 0 && (
+                <div className="flex items-center justify-between px-4 mb-2">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4"
+                      name="chek"
+                      checked={semuaDipilih}
+                      onChange={chekboxPilihSemua}
+                    />
+                    <span className="ml-2 font-prefix">Select All</span>
+                  </label>
+
+                  <button
+                    onClick={tampilkanModalKonfirmasi}
+                    disabled={
+                      !semuaDipilih &&
+                      pilihanItem.filter((item) => item).length === 0
+                    }
+                  >
+                    <IconClearAll />
+                  </button>
+                </div>
+              )}
+
               {tugas.map((urutan, list) => (
                 <li
                   key={list}
-                  className="flex justify-between items-center py-2 border-b border-blue-500 rounded-lg"
+                  className="flex justify-between items-center py-2 border-b border-blue-500 rounded-lg px-2"
                 >
-                  <span className="font-description ml-2">{urutan}</span>
+                  <span className="font-description">{urutan}</span>
 
-                  <div className="flex items-center gap-2 mr-2">
+                  <div className="flex items-center gap-2">
+                    {semuaDipilih ||
+                    (pilihanItem.length > 0 && pilihanItem[list]) ? (
+                      <label className="inline-flex items-center">
+                        <input
+                          type="checkbox"
+                          name="chek"
+                          className="h-4 w-4"
+                          checked={pilihanItem[list]}
+                          onChange={() => chekboxPilihItem(list)}
+                        />
+                      </label>
+                    ) : null}
+
                     <button onClick={() => editListTugas(list)}>
                       <IconEdit />
                     </button>
@@ -148,6 +223,12 @@ const TodoList = () => {
           membuka={membukaModalHapus}
           konfirmasiHapus={konfirmasiHapus}
           batalHapus={batalHapus}
+        />
+
+        <ModalDeleteAll
+          membuka={membukaModalKonfirmasi}
+          konfirmasiHapus={hapusSemuaTugasTerpilih}
+          batalHapus={() => mengaturMembukaModalKonfirmasi(false)}
         />
 
         <ModalEdit
