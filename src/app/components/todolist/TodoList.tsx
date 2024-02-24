@@ -25,6 +25,7 @@ const TodoList = () => {
   const [membukaModalEdit, mengaturMembukaModalEdit] = useState<boolean>(false);
   const [semuaDipilih, mengaturSemuaDipilih] = useState<boolean>(false);
   const [pilihanItem, mengaturPilihanItem] = useState<boolean[]>([]);
+  const [selectAllClicked, setSelectAllClicked] = useState<boolean>(false);
 
   const [membukaModalKonfirmasi, mengaturMembukaModalKonfirmasi] =
     useState(false);
@@ -49,12 +50,19 @@ const TodoList = () => {
   };
 
   const konfirmasiHapus = () => {
+    // Mengatur ulang tugas dan pilihanItem setelah penghapusan
     const tugasBaru = tugas.filter((_, i) => i !== indeksHapus);
     const pilihanBaru = pilihanItem.filter((_, i) => i !== indeksHapus);
     mengaturTugas(tugasBaru);
     mengaturPilihanItem(pilihanBaru);
+
+    // Menutup modal hapus dan mengatur indeksHapus kembali ke nilai awal
     mengaturMembukaModalHapus(false);
     mengaturIndeksHapus(-1);
+
+    // Reset checkbox selectAll jika pengguna mengonfirmasi penghapusan
+    mengaturSemuaDipilih(false);
+    setSelectAllClicked(false); // Reset status "Select All" yang telah diklik
   };
 
   const konfirmasiEdit = (editTugas: string) => {
@@ -83,6 +91,8 @@ const TodoList = () => {
   const chekboxPilihSemua = () => {
     const seleksiBaru = !semuaDipilih;
     mengaturSemuaDipilih(seleksiBaru);
+    // Mengatur status "Select All" yang telah diklik
+    setSelectAllClicked(true);
     mengaturPilihanItem(pilihanItem.map(() => seleksiBaru));
   };
 
@@ -93,6 +103,10 @@ const TodoList = () => {
       seleksiBaru,
       ...pilihanItem.slice(index + 1),
     ]);
+    // Jika "Select All" telah diklik sebelumnya, tidak mengubah status "Select All"
+    if (selectAllClicked) {
+      setSelectAllClicked(false);
+    }
   };
 
   const hapusSemuaTugasTerpilih = () => {
@@ -100,7 +114,11 @@ const TodoList = () => {
     const pilihanBaru = pilihanItem.filter((_, i) => !pilihanItem[i]);
     mengaturTugas(tugasBaru);
     mengaturPilihanItem(pilihanBaru);
-    mengaturSemuaDipilih(false);
+    // Hanya mengatur kembali status "Select All" jika tidak ada yang dipilih setelah menghapus
+    if (pilihanBaru.length === 0) {
+      mengaturSemuaDipilih(false);
+      setSelectAllClicked(false);
+    }
   };
 
   return (
