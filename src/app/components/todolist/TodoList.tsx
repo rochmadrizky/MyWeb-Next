@@ -4,13 +4,11 @@ import { useState } from "react";
 import Modal from "./Modal";
 import ModalDelete from "./ModalDelete";
 import ModalEdit from "./ModalEdit";
-import ModalDeleteAll from "./ModalDeleteAll";
 import {
   IconClick,
   IconHandClick,
   IconEdit,
   IconTrash,
-  IconClearAll,
 } from "@tabler/icons-react";
 
 const TodoList = () => {
@@ -23,16 +21,7 @@ const TodoList = () => {
     useState<boolean>(false);
   const [indeksEdit, mengaturIndeksEdit] = useState<number>(-1);
   const [membukaModalEdit, mengaturMembukaModalEdit] = useState<boolean>(false);
-  const [semuaDipilih, mengaturSemuaDipilih] = useState<boolean>(false);
   const [pilihanItem, mengaturPilihanItem] = useState<boolean[]>([]);
-  const [selectAllClicked, setSelectAllClicked] = useState<boolean>(false);
-
-  const [membukaModalKonfirmasi, mengaturMembukaModalKonfirmasi] =
-    useState(false);
-
-  const tampilkanModalKonfirmasi = () => {
-    mengaturMembukaModalKonfirmasi(true);
-  };
 
   const mengurutkanTugas = (mengurutkan: string) => {
     mengaturTugas([mengurutkan, ...tugas]);
@@ -50,19 +39,12 @@ const TodoList = () => {
   };
 
   const konfirmasiHapus = () => {
-    // Mengatur ulang tugas dan pilihanItem setelah penghapusan
     const tugasBaru = tugas.filter((_, i) => i !== indeksHapus);
     const pilihanBaru = pilihanItem.filter((_, i) => i !== indeksHapus);
     mengaturTugas(tugasBaru);
     mengaturPilihanItem(pilihanBaru);
-
-    // Menutup modal hapus dan mengatur indeksHapus kembali ke nilai awal
     mengaturMembukaModalHapus(false);
     mengaturIndeksHapus(-1);
-
-    // Reset checkbox selectAll jika pengguna mengonfirmasi penghapusan
-    mengaturSemuaDipilih(false);
-    setSelectAllClicked(false); // Reset status "Select All" yang telah diklik
   };
 
   const konfirmasiEdit = (editTugas: string) => {
@@ -73,52 +55,9 @@ const TodoList = () => {
     mengaturIndeksEdit(-1);
   };
 
-  const batalHapus = () => {
-    mengaturMembukaModalHapus(false);
-    mengaturIndeksHapus(-1);
-  };
-
-  const batalEdit = () => {
-    mengaturMembukaModalEdit(false);
-    mengaturIndeksEdit(-1);
-  };
-
   const menutupModalTambah = () => {
     mengaturMembukaModalTambah(false);
     mengaturInput("");
-  };
-
-  const chekboxPilihSemua = () => {
-    const seleksiBaru = !semuaDipilih;
-    mengaturSemuaDipilih(seleksiBaru);
-    // Mengatur status "Select All" yang telah diklik
-    setSelectAllClicked(true);
-    mengaturPilihanItem(pilihanItem.map(() => seleksiBaru));
-  };
-
-  const chekboxPilihItem = (index: number) => {
-    const seleksiBaru = !pilihanItem[index];
-    mengaturPilihanItem([
-      ...pilihanItem.slice(0, index),
-      seleksiBaru,
-      ...pilihanItem.slice(index + 1),
-    ]);
-    // Jika "Select All" telah diklik sebelumnya, tidak mengubah status "Select All"
-    if (selectAllClicked) {
-      setSelectAllClicked(false);
-    }
-  };
-
-  const hapusSemuaTugasTerpilih = () => {
-    const tugasBaru = tugas.filter((_, i) => !pilihanItem[i]);
-    const pilihanBaru = pilihanItem.filter((_, i) => !pilihanItem[i]);
-    mengaturTugas(tugasBaru);
-    mengaturPilihanItem(pilihanBaru);
-    // Hanya mengatur kembali status "Select All" jika tidak ada yang dipilih setelah menghapus
-    if (pilihanBaru.length === 0) {
-      mengaturSemuaDipilih(false);
-      setSelectAllClicked(false);
-    }
   };
 
   return (
@@ -166,31 +105,6 @@ const TodoList = () => {
                 </p>
               )}
 
-              {tugas.length > 0 && (
-                <div className="flex items-center justify-between px-4 mb-2">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4"
-                      name="chek"
-                      checked={semuaDipilih}
-                      onChange={chekboxPilihSemua}
-                    />
-                    <span className="ml-2 font-prefix">Select All</span>
-                  </label>
-
-                  <button
-                    onClick={tampilkanModalKonfirmasi}
-                    disabled={
-                      !semuaDipilih &&
-                      pilihanItem.filter((item) => item).length === 0
-                    }
-                  >
-                    <IconClearAll />
-                  </button>
-                </div>
-              )}
-
               {tugas.map((urutan, list) => (
                 <li
                   key={list}
@@ -199,19 +113,6 @@ const TodoList = () => {
                   <span className="font-description">{urutan}</span>
 
                   <div className="flex items-center gap-2">
-                    {semuaDipilih ||
-                    (pilihanItem.length > 0 && pilihanItem[list]) ? (
-                      <label className="inline-flex items-center">
-                        <input
-                          type="checkbox"
-                          name="chek"
-                          className="h-4 w-4"
-                          checked={pilihanItem[list]}
-                          onChange={() => chekboxPilihItem(list)}
-                        />
-                      </label>
-                    ) : null}
-
                     <button onClick={() => editListTugas(list)}>
                       <IconEdit />
                     </button>
@@ -240,19 +141,19 @@ const TodoList = () => {
         <ModalDelete
           membuka={membukaModalHapus}
           konfirmasiHapus={konfirmasiHapus}
-          batalHapus={batalHapus}
-        />
-
-        <ModalDeleteAll
-          membuka={membukaModalKonfirmasi}
-          konfirmasiHapus={hapusSemuaTugasTerpilih}
-          batalHapus={() => mengaturMembukaModalKonfirmasi(false)}
+          batalHapus={() => {
+            mengaturMembukaModalHapus(false);
+            mengaturIndeksHapus(-1);
+          }}
         />
 
         <ModalEdit
           membuka={membukaModalEdit}
           konfirmasiEdit={konfirmasiEdit}
-          batalEdit={batalEdit}
+          batalEdit={() => {
+            mengaturMembukaModalEdit(false);
+            mengaturIndeksEdit(-1);
+          }}
           tugas={tugas[indeksEdit]}
         />
       </div>
