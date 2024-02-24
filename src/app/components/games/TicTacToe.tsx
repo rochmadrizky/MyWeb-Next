@@ -67,20 +67,20 @@ const TicTacToe: React.FC = () => {
   useEffect(() => {
     if (!penggunaX && permainanDimulai) {
       const pengaturWaktu = setTimeout(() => {
-        const emptySquares = papanPermainan.reduce<number[]>(
-          (acc, el, index) => {
-            if (el === kotakKosong) {
-              acc.push(index);
+        const papanKosong = papanPermainan.reduce<number[]>(
+          (menerima, isi, index) => {
+            if (isi === kotakKosong) {
+              menerima.push(index);
             }
-            return acc;
+            return menerima;
           },
           []
         );
 
-        const randomIndex = Math.floor(Math.random() * emptySquares.length);
-        const newSquares = [...papanPermainan];
-        newSquares[emptySquares[randomIndex]] = kotakO;
-        mengaturPapanPermainan(newSquares);
+        const indeksAcak = Math.floor(Math.random() * papanKosong.length);
+        const papanBaru = [...papanPermainan];
+        papanBaru[papanKosong[indeksAcak]] = kotakO;
+        mengaturPapanPermainan(papanBaru);
         mengaturPenggunaX(true);
       }, 500);
 
@@ -88,8 +88,8 @@ const TicTacToe: React.FC = () => {
     }
   }, [penggunaX, papanPermainan, permainanDimulai]);
 
-  const renderSquare = (i: number) => (
-    <Square nilai={papanPermainan[i]} onClick={() => menanganiKlik(i)} />
+  const membuatKotak = (i: number) => (
+    <Square nilai={papanPermainan[i]} klik={() => menanganiKlik(i)} />
   );
 
   const pemenang = hitungPemenang(papanPermainan);
@@ -117,7 +117,7 @@ const TicTacToe: React.FC = () => {
       <div className="grid grid-cols-3 gap-2">
         {Array.from({ length: 9 }).map((_, i) => (
           <div key={i} className="w-24 h-24">
-            {renderSquare(i)}
+            {membuatKotak(i)}
           </div>
         ))}
       </div>
