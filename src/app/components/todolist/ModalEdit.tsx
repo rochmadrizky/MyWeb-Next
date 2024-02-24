@@ -96,7 +96,7 @@ const ModalEdit: React.FC<ModalEditProps> = ({
         className="w-72 md:w-96 bg-gray-100 border-t-2 border-b-2 border-blue-500 p-4 rounded-lg"
       >
         <div className="p-4">
-          <h2 className="text-lg font-bold mb-2 text-center">Edit Task</h2>
+          <h2 className="text-lg font-title mb-2 text-center">Edit Task</h2>
           <input
             ref={input}
             className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2 bg-gray-200"
@@ -116,14 +116,14 @@ const ModalEdit: React.FC<ModalEditProps> = ({
 
         <div className="flex items-center justify-between">
           <button
-            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
+            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500 font-prefix"
             onClick={mengaturEdit}
           >
             Save
           </button>
 
           <button
-            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
+            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500 font-prefix"
             onClick={mengaturBatal}
           >
             Cancel

@@ -116,9 +116,9 @@ const TodoList = () => {
                   key={list}
                   className="flex justify-between items-center py-2 border-b border-blue-500 rounded-lg"
                 >
-                  <span className="font-description">{urutan}</span>
+                  <span className="font-description ml-2">{urutan}</span>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 mr-2">
                     <button onClick={() => editListTugas(list)}>
                       <IconEdit />
                     </button>

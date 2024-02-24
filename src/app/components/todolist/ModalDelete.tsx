@@ -49,11 +49,11 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
         className="bg-gray-100 p-6 rounded-lg border-t-2 border-b-2 border-blue-500"
       >
         <div className="p-4">
-          <p>Do you want to delete this item?</p>
+          <p className="font-description">Do you want to delete this item?</p>
         </div>
         <div className="flex items-center justify-between p-2">
           <button
-            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
+            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500 font-prefix"
             onClick={() => {
               konfirmasiHapus();
             }}
@@ -62,7 +62,7 @@ const ModalDelete: React.FC<ModalDeleteProps> = ({
           </button>
 
           <button
-            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500"
+            className="px-4 py-2 bg-gray-200 rounded-md border-t-2 border-b-2 border-blue-500 font-prefix"
             onClick={() => {
               batalHapus();
             }}
