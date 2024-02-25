@@ -1,3 +1,4 @@
+import BLogContent from "@/app/components/blogs/BlogContent";
 import React from "react";
 
 const Page = () => {
@@ -21,7 +22,9 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="py-12"></div>
+      <div className="py-12">
+        <BLogContent />
+      </div>
     </div>
   );
 };

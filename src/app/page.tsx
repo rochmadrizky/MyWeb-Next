@@ -12,7 +12,7 @@ const Page = () => {
         <HomeContent />
       </div>
 
-      <div className="py-6">
+      <div className="py-12">
         <IsiContent />
       </div>
     </div>
