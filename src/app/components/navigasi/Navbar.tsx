@@ -57,7 +57,7 @@ const Navbar = () => {
         </div>
 
         <div className="block md:hidden">
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-center gap-4 relative">
             <div className="z-10">
               <SearchButton />
             </div>
@@ -68,14 +68,20 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <button
-              onClick={klikMenuIcon}
-              className={`transform ${
-                putarIcon ? "rotate-180" : ""
-              } transition duration-300`}
-            >
-              {bukaMenu ? <IconX /> : <IconMenu2 />}
-            </button>
+            <div>
+              <ButtonNotif />
+            </div>
+
+            <div className="absolute -right-20">
+              <button
+                onClick={klikMenuIcon}
+                className={`transform ${
+                  putarIcon ? "rotate-180" : ""
+                } transition duration-300`}
+              >
+                {bukaMenu ? <IconX /> : <IconMenu2 />}
+              </button>
+            </div>
           </div>
         </div>
 
