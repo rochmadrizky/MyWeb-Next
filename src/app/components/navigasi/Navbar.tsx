@@ -35,7 +35,7 @@ const Navbar = () => {
     };
   }, [bukaMenu]);
 
-  const bukaSidbar = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-200 px-4 transform transition-transform duration-300 ease-in-out z-50 border-r-2 border-blue-500${
+  const bukaSidbar = `fixed flex flex-col top-0 left-0 h-full w-56 bg-gray-200 px-4 transform transition-transform duration-500 ease-in-out z-50 border-r-2 border-blue-500${
     bukaMenu ? " translate-x-0" : " -translate-x-full"
   }`;
 
