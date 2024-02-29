@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import MenuNavbar from "../navigasi/MenuNavbar";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import SearchButton from "./SearchButton";
+import ButtonNotif from "./ButtonNotif";
 
 const Navbar = () => {
   const [bukaMenu, mengaturMenuTerbuka] = useState(false);
@@ -48,7 +49,10 @@ const Navbar = () => {
           </div>
 
           <div className="absolute right-0 hidden md:block">
-            <SearchButton />
+            <div className="flex items-center justify-center gap-4">
+              <ButtonNotif />
+              <SearchButton />
+            </div>
           </div>
         </div>
 
