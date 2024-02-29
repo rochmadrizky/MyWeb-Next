@@ -1,12 +1,21 @@
 "use client";
 
 import { IconBell } from "@tabler/icons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ModalNotif from "./ModalNotif";
 
 const ButtonNotif = () => {
   const [tampilkanModal, mengaturTampilkanModal] = useState(false);
   const [tampilkanNotifikasi, mengaturTampilkanNotifikasi] = useState(true);
+
+  // localStorage
+  useEffect(() => {
+    const statusNotifikasi = localStorage.getItem("tampilkanNotifikasi");
+    if (statusNotifikasi !== null) {
+      mengaturTampilkanNotifikasi(statusNotifikasi === "true");
+    }
+  }, []);
+  //
 
   const klikModal = () => {
     mengaturTampilkanModal(!tampilkanModal);
@@ -14,6 +23,9 @@ const ButtonNotif = () => {
 
   const sembunyikanNotif = () => {
     mengaturTampilkanNotifikasi(false);
+    // localStorage
+    localStorage.setItem("tampilkanNotifikasi", "false");
+    //
   };
 
   return (
