@@ -142,10 +142,8 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70 transition-opacity ${
-        membuka
-          ? "opacity-100 transition-transform duration-500"
-          : "opacity-0 pointer-events-none"
+      className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center transition-opacity ${
+        membuka ? "opacity-100 duration-500" : "opacity-0 pointer-events-none"
       }`}
     >
       <div ref={modal} className="w-72 md:w-96 top-20 rounded-lg absolute">
