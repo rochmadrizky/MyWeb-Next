@@ -9,12 +9,12 @@ const ButtonNotif = () => {
   const [tampilkanNotifikasi, mengaturTampilkanNotifikasi] = useState(true);
 
   // localStorage
-  useEffect(() => {
-    const statusNotifikasi = localStorage.getItem("tampilkanNotifikasi");
-    if (statusNotifikasi !== null) {
-      mengaturTampilkanNotifikasi(statusNotifikasi === "true");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const statusNotifikasi = localStorage.getItem("tampilkanNotifikasi");
+  //   if (statusNotifikasi !== null) {
+  //     mengaturTampilkanNotifikasi(statusNotifikasi === "true");
+  //   }
+  // }, []);
   //
 
   const klikModal = () => {
@@ -24,7 +24,7 @@ const ButtonNotif = () => {
   const sembunyikanNotif = () => {
     mengaturTampilkanNotifikasi(false);
     // localStorage
-    localStorage.setItem("tampilkanNotifikasi", "false");
+    // localStorage.setItem("tampilkanNotifikasi", "false");
     //
   };
 
@@ -43,7 +43,7 @@ const ButtonNotif = () => {
       />
 
       {tampilkanNotifikasi && !tampilkanModal && (
-        <div className="w-2 h-2 bg-red-500 rounded-full absolute top-0 right-0"></div>
+        <div className="w-2 h-2 bg-blue-500 animate-bounce rounded-full absolute top-0 right-0.5"></div>
       )}
     </div>
   );
