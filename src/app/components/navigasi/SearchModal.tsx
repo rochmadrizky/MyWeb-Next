@@ -142,7 +142,7 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center transition-opacity ${
+      className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center transition-opacity ${
         membuka ? "opacity-100 duration-500" : "opacity-0 pointer-events-none"
       }`}
     >

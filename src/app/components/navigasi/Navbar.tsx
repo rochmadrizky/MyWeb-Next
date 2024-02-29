@@ -72,7 +72,7 @@ const Navbar = () => {
               <ButtonNotif />
             </div>
 
-            <div className="absolute -right-20">
+            <div className="absolute -right-[70px]">
               <button
                 onClick={klikMenuIcon}
                 className={`transform ${

@@ -40,25 +40,25 @@ const ModalNotif: React.FC<ModalNotifProps> = ({ tampilkan, menutup }) => {
   }, [tampilkan, menutup]);
 
   return (
-    <>
-      {tampilkan && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-70">
-          <div ref={modal} className="p-8">
-            <div className="max-w-md bg-gray-100 p-6 rounded-xl border-t-2 border-b-2 border-blue-500">
-              <div className="p-2 text-center">
-                <h2 className="text-2xl font-title mb-4">
-                  Thank you very much
-                </h2>
-                <p className="font-description">
-                  you have visited my personal website, once again I thank you
-                  very much.
-                </p>
-              </div>
-            </div>
+    <div
+      className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center transition-opacity ${
+        tampilkan ? "opacity-100 duration-500" : "opacity-0 pointer-events-none"
+      }`}
+    >
+      <div ref={modal} className="p-8">
+        <div className="max-w-md bg-gray-100 p-6 rounded-xl border-t-2 border-b-2 border-blue-500">
+          <div className="p-2 text-center">
+            <h2 className="text-2xl font-title mb-4">Thank you very much</h2>
+            <p className="font-description">
+              you have visited my personal website,
+            </p>
+            <p className="font-description">
+              once again I thank you very much.
+            </p>
           </div>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 
