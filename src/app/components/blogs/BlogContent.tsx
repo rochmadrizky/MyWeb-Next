@@ -1,36 +1,27 @@
+import Link from "next/link";
 import React from "react";
-import {
-  IconActivity,
-  IconCode,
-  IconCoffee,
-  IconQuotes,
-} from "@tabler/icons-react";
 
 const BLogContent = () => {
   const konten = [
     {
-      icon: <IconCode />,
-      judul: "Coding.",
+      gambar: "/gambar/carousel.jpeg",
+      judul: "Slider Image",
       deskripsi:
-        "Every day I always conduct website display coding experiments, and don't forget to record them on my <a href='/blogs' class='text-blue-500'>Blogs</a> page.",
+        "Using slide images for efficiency and space, also makes the content dynamic.",
+      link: "/carousel",
     },
     {
-      icon: <IconCoffee />,
-      judul: "Inspiration.",
+      gambar: "/gambar/list.jpeg",
+      judul: "To-do List",
       deskripsi:
-        "By the way, coffee and cigarettes are one of the driving forces of inspiration for me.",
+        "I make a list of notes or daily tasks, with a simple appearance.",
+      link: "/todolist",
     },
     {
-      icon: <IconActivity />,
-      judul: "Activity.",
-      deskripsi:
-        "Sometimes during my busy schedule, I always make time for sport, namely boxing.",
-    },
-    {
-      icon: <IconQuotes />,
-      judul: "Quotes.",
-      deskripsi:
-        '"All days are beautiful, if they are with You." just kidding, relax, friend. hehe',
+      gambar: "/gambar/tictac.jpeg",
+      judul: "Tic Tac Toe",
+      deskripsi: "Create an old game with a simple appearance, you can try it.",
+      link: "/games",
     },
   ];
 
@@ -38,25 +29,26 @@ const BLogContent = () => {
     <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {konten.map((isi, urutan) => (
-          <div
+          <Link
+            href={isi.link}
             key={urutan}
-            className="bg-gray-100 border-t-2 border-b-2 border-blue-500 rounded-lg shadow-md"
+            className="bg-gray-100 border-t-2 border-b-2 border-blue-500 rounded-lg shadow-md overflow-hidden"
           >
-            <div className="flex items-center justify-center">
-              <div className="p-8">
-                <div className=" flex flex-col items-center justify-center">
-                  <div className="p-4 text-blue-500">{isi.icon}</div>
-                  <div className="text-center">
-                    <h1 className="font-prefix text-xl">{isi.judul}</h1>
-                    <p
-                      className="font-description py-2"
-                      dangerouslySetInnerHTML={{ __html: isi.deskripsi }}
-                    ></p>
-                  </div>
+            <div className="flex items-center justify-center ">
+              <div className="flex flex-col items-center justify-center">
+                <img
+                  src={isi.gambar}
+                  alt={isi.judul}
+                  className="w-full h-44 transform hover:scale-110 hover:rotate-6 duration-200 object-cover"
+                />
+
+                <div className="text-center p-2">
+                  <h1 className="font-prefix text-lg">{isi.judul}</h1>
+                  <p className="font-description p-1">{isi.deskripsi}</p>
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
