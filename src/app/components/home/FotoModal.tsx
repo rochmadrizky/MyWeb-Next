@@ -3,9 +3,10 @@ import React, { useRef, useEffect } from "react";
 interface FotoModalProps {
   membuka: boolean;
   menutup: () => void;
+  foto: string;
 }
 
-const FotoModal: React.FC<FotoModalProps> = ({ membuka, menutup }) => {
+const FotoModal: React.FC<FotoModalProps> = ({ membuka, menutup, foto }) => {
   const modal = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const FotoModal: React.FC<FotoModalProps> = ({ membuka, menutup }) => {
     >
       <div ref={modal} className="p-4">
         <img
-          src="/me/thisIsMe.png"
+          src={foto}
           alt="saya"
           className=" md:w-96 md:h-96 w-72 h-72 rounded-b-3xl"
         />

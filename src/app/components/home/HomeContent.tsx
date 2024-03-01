@@ -7,6 +7,8 @@ const HomeContent = () => {
   const [tampilkanModal, mengaturTampilkanModal] = useState(false);
   const [lingkaran, mengaturLingkaran] = useState("ring-blue-500 ring-2");
 
+  const fotoMe = "/me/thisIsMe.png";
+
   const klikModal = () => {
     mengaturTampilkanModal(true);
     mengaturLingkaran("ring-4 ring-blue-500 animate-pulse");
@@ -24,7 +26,7 @@ const HomeContent = () => {
           className={`absolute rounded-full mx-auto w-36 h-36 cursor-pointer ${lingkaran}`}
         ></div>
         <img
-          src="/me/thisIsMe.png"
+          src={fotoMe}
           alt="saya"
           className="rounded-full mx-auto w-36 h-36 bg-gray-300 p-0.5"
         />
@@ -38,7 +40,7 @@ const HomeContent = () => {
         <p className="text-xl font-prefix">Front-End Developer</p>
       </div>
 
-      <FotoModal membuka={tampilkanModal} menutup={tutupModal} />
+      <FotoModal membuka={tampilkanModal} menutup={tutupModal} foto={fotoMe} />
     </div>
   );
 };
