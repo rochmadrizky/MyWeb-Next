@@ -5,6 +5,7 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
+import Today from "./Today";
 
 const FotBar = () => {
   const Tahun = new Date().getFullYear();
@@ -33,6 +34,10 @@ const FotBar = () => {
               {barang.icon}
             </a>
           ))}
+
+          <div>
+            <Today />
+          </div>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-y-2">

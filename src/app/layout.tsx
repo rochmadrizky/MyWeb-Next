@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/navigasi/Navbar";
-import FotBar from "./components/navigasi/FotBar";
+import FotBar from "./components/footer/FotBar";
 
 export const metadata: Metadata = {
   title: "Rizky",
