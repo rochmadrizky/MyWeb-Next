@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface DropdownVisitProps {
   buka: boolean;
@@ -7,49 +7,51 @@ interface DropdownVisitProps {
 
 const DropdownVisit: React.FC<DropdownVisitProps> = ({ buka, tutup }) => {
   const dropdown = useRef<HTMLDivElement>(null);
-  const [hariBulan, setHariBulan] = useState<string>("");
-  const [jamMenit, setJamMenit] = useState<string>("");
+  const [hariBulan, mengaturHariBulan] = useState<string>("");
+  const [jamMenit, mengaturJamMenit] = useState<string>("");
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdown.current &&
-        !dropdown.current.contains(event.target as Node)
-      ) {
+    const klikDiluar = (klik: MouseEvent) => {
+      if (dropdown.current && !dropdown.current.contains(klik.target as Node)) {
         tutup();
       }
     };
 
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+    const klikEscape = (klik: KeyboardEvent) => {
+      if (klik.key === "Escape") {
         tutup();
       }
     };
 
     if (buka) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleEscapeKey);
-      updateDateTime();
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
-    }
+      document.addEventListener("mousedown", klikDiluar);
+      document.addEventListener("keydown", klikEscape);
+      perbaruiTanggalWaktu();
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
+      const waktuMenutup = setTimeout(() => {
+        tutup();
+      }, 1500);
+
+      return () => {
+        document.removeEventListener("mousedown", klikDiluar);
+        document.removeEventListener("keydown", klikEscape);
+        clearTimeout(waktuMenutup);
+      };
+    } else {
+      document.removeEventListener("mousedown", klikDiluar);
+      document.removeEventListener("keydown", klikEscape);
+    }
   }, [buka, tutup]);
 
-  const updateDateTime = () => {
-    const date = new Date();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const dayOfWeek = date.getDay();
-    const days = [
+  const perbaruiTanggalWaktu = () => {
+    const tanggal = new Date();
+    const jam = tanggal.getHours();
+    const menit = tanggal.getMinutes();
+    const hari = tanggal.getDate();
+    const bulan = tanggal.getMonth() + 1;
+    const tahun = tanggal.getFullYear();
+    const hariDalamSeminggu = tanggal.getDay();
+    const listHari = [
       "Sunday",
       "Monday",
       "Tuesday",
@@ -58,7 +60,7 @@ const DropdownVisit: React.FC<DropdownVisitProps> = ({ buka, tutup }) => {
       "Friday",
       "Saturday",
     ];
-    const months = [
+    const listBulan = [
       "January",
       "February",
       "March",
@@ -73,13 +75,15 @@ const DropdownVisit: React.FC<DropdownVisitProps> = ({ buka, tutup }) => {
       "December",
     ];
 
-    const dayMonthString = `${days[dayOfWeek]}, ${day} ${
-      months[month - 1]
-    } ${year}`;
-    const hourMinuteString = `${hours}:${minutes.toString().padStart(2, "0")}`;
+    const aturHariBulan = `${listHari[hariDalamSeminggu]}, ${hari} ${
+      listBulan[bulan - 1]
+    } ${tahun}`;
+    const aturJamMenit = `${jam.toString().padStart(2, "0")}:${menit
+      .toString()
+      .padStart(2, "0")}`;
 
-    setHariBulan(dayMonthString);
-    setJamMenit(hourMinuteString);
+    mengaturHariBulan(aturHariBulan);
+    mengaturJamMenit(aturJamMenit);
   };
 
   return (
