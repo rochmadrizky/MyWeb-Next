@@ -5,23 +5,23 @@ import FotoModal from "./FotoModal";
 
 const HomeContent = () => {
   const [tampilkanModal, mengaturTampilkanModal] = useState(false);
-  const [modalRingColor, setModalRingColor] = useState("ring-blue-500 ring-2");
+  const [lingkaran, mengaturLingkaran] = useState("ring-blue-500 ring-2");
 
   const klikModal = () => {
     mengaturTampilkanModal(true);
-    setModalRingColor("ring-4 ring-blue-500 animate-pulse");
+    mengaturLingkaran("ring-4 ring-blue-500 animate-pulse");
   };
 
   const tutupModal = () => {
     mengaturTampilkanModal(false);
-    setModalRingColor("ring-blue-500 ring-2");
+    mengaturLingkaran("ring-blue-500 ring-2");
   };
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">
       <div className="p-4 relative" onClick={klikModal}>
         <div
-          className={`absolute rounded-full mx-auto w-36 h-36 cursor-pointer ${modalRingColor}`}
+          className={`absolute rounded-full mx-auto w-36 h-36 cursor-pointer ${lingkaran}`}
         ></div>
         <img
           src="/me/thisIsMe.png"
