@@ -78,17 +78,18 @@ const DropdownVisit: React.FC<DropdownVisitProps> = ({ buka, tutup }) => {
     mengaturJamMenit(jamMenitString);
   };
 
-  if (!buka) return null;
-
   return (
     <div
-      ref={dropdown}
-      className="absolute bottom-full -right-6 md:-right-20 mb-2"
+      className={`fixed z-10 top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center transition-opacity ${
+        buka ? "opacity-100 duration-500" : "opacity-0 pointer-events-none"
+      }`}
     >
-      <div className="p-2 border-2 border-blue-500 rounded-lg bg-gray-100 w-56 h-auto mx-auto">
-        <div className="text-center">
-          <p className="font-title text-md">{hariBulan}</p>
-          <p className="font-prefix text-sm">{jamMenit}</p>
+      <div ref={dropdown} className="p-8">
+        <div className="p-2 border-2 border-blue-500 rounded-lg bg-gray-100 w-56 h-auto mx-auto">
+          <div className="text-center">
+            <p className="font-title text-md">{hariBulan}</p>
+            <p className="font-prefix text-sm">{jamMenit}</p>
+          </div>
         </div>
       </div>
     </div>
