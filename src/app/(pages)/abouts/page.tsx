@@ -1,3 +1,4 @@
+import AboutContent from "@/app/components/abouts/AboutContent";
 import React from "react";
 
 const Page = () => {
