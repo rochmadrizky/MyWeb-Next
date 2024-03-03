@@ -9,29 +9,23 @@ const ButtonNotif = () => {
   const [tampilkanNotifikasi, mengaturTampilkanNotifikasi] = useState(true);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // Check if the key combination is Command + U
-      if (event.metaKey && event.key === "u") {
-        // Toggle the modal
+    const shortcutMembukaNotif = (klik: KeyboardEvent) => {
+      if (klik.metaKey && klik.key === "u") {
         if (tampilkanModal) {
-          // Close the modal and hide notification
           mengaturTampilkanModal(false);
           mengaturTampilkanNotifikasi(false);
         } else {
-          // Open the modal
           mengaturTampilkanModal(true);
         }
       }
     };
 
-    // Add event listener for keydown
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", shortcutMembukaNotif);
 
     return () => {
-      // Cleanup by removing event listener
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", shortcutMembukaNotif);
     };
-  }, [tampilkanModal]); // Adding tampilkanModal to the dependency array
+  }, [tampilkanModal]);
 
   const klikModal = () => {
     mengaturTampilkanModal(!tampilkanModal);

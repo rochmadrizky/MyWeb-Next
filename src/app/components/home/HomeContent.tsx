@@ -20,24 +20,22 @@ const HomeContent = () => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "i") {
+    const shortcutMembukaFoto = (klik: KeyboardEvent) => {
+      if ((klik.metaKey || klik.ctrlKey) && klik.key === "i") {
         if (tampilkanModal) {
-          // Tombol "Command + I" saat modal terbuka, tutup modal
           tutupModal();
         } else {
-          // Tombol "Command + I" saat modal tertutup, buka modal
           klikModal();
         }
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", shortcutMembukaFoto);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", shortcutMembukaFoto);
     };
-  }, [tampilkanModal]); // useEffect akan dieksekusi ulang saat tampilkanModal berubah
+  }, [tampilkanModal]);
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">

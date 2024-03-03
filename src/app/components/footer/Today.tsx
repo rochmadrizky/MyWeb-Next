@@ -12,22 +12,20 @@ const Today = () => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "e" && event.metaKey) {
-        // Tombol "e" ditekan bersama dengan tombol "command" (meta key)
+    const shortcutMembukaDropdown = (klik: KeyboardEvent) => {
+      if (klik.key === "e" && klik.metaKey) {
         toggleDropdown();
-      } else if (event.key === "e" && event.metaKey && bukaDropdown) {
-        // Tombol "e" ditekan bersama dengan tombol "command" (meta key) dan dropdown terbuka
+      } else if (klik.key === "e" && klik.metaKey && bukaDropdown) {
         toggleDropdown();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", shortcutMembukaDropdown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", shortcutMembukaDropdown);
     };
-  }, [bukaDropdown]); // Efek akan berjalan ketika bukaDropdown berubah
+  }, [bukaDropdown]);
 
   return (
     <div className="relative">
