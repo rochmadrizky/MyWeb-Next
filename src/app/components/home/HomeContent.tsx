@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FotoModal from "./FotoModal";
 
 const HomeContent = () => {
@@ -18,6 +18,26 @@ const HomeContent = () => {
     mengaturTampilkanModal(false);
     mengaturLingkaran("ring-blue-500 ring-2");
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "i") {
+        if (tampilkanModal) {
+          // Tombol "Command + I" saat modal terbuka, tutup modal
+          tutupModal();
+        } else {
+          // Tombol "Command + I" saat modal tertutup, buka modal
+          klikModal();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [tampilkanModal]); // useEffect akan dieksekusi ulang saat tampilkanModal berubah
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">

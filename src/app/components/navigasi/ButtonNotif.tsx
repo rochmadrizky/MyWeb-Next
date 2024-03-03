@@ -8,14 +8,30 @@ const ButtonNotif = () => {
   const [tampilkanModal, mengaturTampilkanModal] = useState(false);
   const [tampilkanNotifikasi, mengaturTampilkanNotifikasi] = useState(true);
 
-  // localStorage
-  // useEffect(() => {
-  //   const statusNotifikasi = localStorage.getItem("tampilkanNotifikasi");
-  //   if (statusNotifikasi !== null) {
-  //     mengaturTampilkanNotifikasi(statusNotifikasi === "true");
-  //   }
-  // }, []);
-  //
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check if the key combination is Command + U
+      if (event.metaKey && event.key === "u") {
+        // Toggle the modal
+        if (tampilkanModal) {
+          // Close the modal and hide notification
+          mengaturTampilkanModal(false);
+          mengaturTampilkanNotifikasi(false);
+        } else {
+          // Open the modal
+          mengaturTampilkanModal(true);
+        }
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      // Cleanup by removing event listener
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [tampilkanModal]); // Adding tampilkanModal to the dependency array
 
   const klikModal = () => {
     mengaturTampilkanModal(!tampilkanModal);
@@ -23,9 +39,6 @@ const ButtonNotif = () => {
 
   const sembunyikanNotif = () => {
     mengaturTampilkanNotifikasi(false);
-    // localStorage
-    // localStorage.setItem("tampilkanNotifikasi", "false");
-    //
   };
 
   return (
