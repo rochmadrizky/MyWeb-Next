@@ -61,12 +61,12 @@ const IsiCarousel = () => {
   };
 
   const tekanMouse = (
-    event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
+    klik: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
-    if ("touches" in event) {
-      mengaturSeretDariX(event.touches[0].pageX);
+    if ("touches" in klik) {
+      mengaturSeretDariX(klik.touches[0].pageX);
     } else {
-      mengaturSeretDariX(event.pageX);
+      mengaturSeretDariX(klik.pageX);
     }
   };
 
