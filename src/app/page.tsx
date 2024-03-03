@@ -1,6 +1,6 @@
 import React from "react";
 import HomeContent from "./components/home/HomeContent";
-import IsiContent from "./components/home/IsiContent";
+import Content from "./components/home/Content";
 
 const Page = () => {
   return (
@@ -13,7 +13,7 @@ const Page = () => {
       </div>
 
       <div className="py-12">
-        <IsiContent />
+        <Content />
       </div>
     </div>
   );
