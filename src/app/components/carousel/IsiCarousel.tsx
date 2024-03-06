@@ -172,6 +172,9 @@ const IsiCarousel = () => {
             Please try swiping directly on the image to move to the next or
             previous content.
           </p>
+          <p className="font-description">
+            You can also apply the same thing to the cover background above.
+          </p>
         </div>
       </div>
     </div>
