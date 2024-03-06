@@ -1,13 +1,10 @@
 "use client";
 
 import IsiCarousel from "@/app/components/carousel/IsiCarousel";
-import {
-  IconPlayerTrackNextFilled,
-  IconPlayerTrackPrevFilled,
-} from "@tabler/icons-react";
+
 import { useState, useRef } from "react";
 
-const page = () => {
+const Page = () => {
   const konten = [
     {
       gambar:
@@ -42,32 +39,32 @@ const page = () => {
     },
   ];
 
-  const [indeksSaatIni, mengaturIndeksSaatIni] = useState(0);
-  const [seretDariX, mengaturSeretDariX] = useState(0);
-  const [titikAktif, mengaturTitikAktif] = useState(0);
+  const [indeksSaatIni, setIndeksSaatIni] = useState(0);
+  const [seretDariX, setSeretDariX] = useState(0);
+  const [titikAktif, setTitikAktif] = useState(0);
   const penggeser = useRef<HTMLDivElement>(null);
 
   const sebelumnya = () => {
     const pengechekan =
       indeksSaatIni === 0 ? konten.length - 1 : indeksSaatIni - 1;
-    mengaturIndeksSaatIni(pengechekan);
-    mengaturTitikAktif(pengechekan);
+    setIndeksSaatIni(pengechekan);
+    setTitikAktif(pengechekan);
   };
 
   const selanjutnya = () => {
     const pengechekan =
       indeksSaatIni === konten.length - 1 ? 0 : indeksSaatIni + 1;
-    mengaturIndeksSaatIni(pengechekan);
-    mengaturTitikAktif(pengechekan);
+    setIndeksSaatIni(pengechekan);
+    setTitikAktif(pengechekan);
   };
 
   const tekanMouse = (
     klik: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
   ) => {
     if ("touches" in klik) {
-      mengaturSeretDariX(klik.touches[0].pageX);
+      setSeretDariX(klik.touches[0].pageX);
     } else {
-      mengaturSeretDariX(klik.pageX);
+      setSeretDariX(klik.pageX);
     }
   };
 
@@ -87,15 +84,15 @@ const page = () => {
 
     if (perbedaan > 50 && indeksSaatIni !== 0) {
       sebelumnya();
-      mengaturSeretDariX(0);
+      setSeretDariX(0);
     } else if (perbedaan < -50 && indeksSaatIni !== konten.length - 1) {
       selanjutnya();
-      mengaturSeretDariX(0);
+      setSeretDariX(0);
     }
   };
 
   const lepasKlikMouse = () => {
-    mengaturSeretDariX(0);
+    setSeretDariX(0);
   };
 
   const titik = konten.map((_, urutan) => (
@@ -109,8 +106,8 @@ const page = () => {
   ));
 
   const ubahKontenDenganTitik = (urutanIndex: number) => {
-    mengaturTitikAktif(urutanIndex);
-    mengaturIndeksSaatIni(urutanIndex);
+    setTitikAktif(urutanIndex);
+    setIndeksSaatIni(urutanIndex);
   };
 
   return (
@@ -157,4 +154,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
