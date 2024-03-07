@@ -18,6 +18,12 @@ const BLogContent = () => {
       link: "/todolist",
     },
     {
+      gambar: "/gambar/kalkulator.jpeg",
+      judul: "Count Quickly",
+      deskripsi: "Calculating quickly, very fast, almost like lightning.",
+      link: "/carousel",
+    },
+    {
       gambar: "/gambar/tictac.jpeg",
       judul: "Tic Tac Toe",
       deskripsi: "Create an old game with a simple appearance, you can try it.",
@@ -39,7 +45,7 @@ const BLogContent = () => {
                 <img
                   src={isi.gambar}
                   alt={isi.judul}
-                  className="w-full h-44 transform hover:scale-110 hover:rotate-6 duration-200 object-cover"
+                  className="w-full h-44 transform hover:scale-110 hover:rotate-6 duration-200 object-fill"
                 />
 
                 <div className="text-center p-2">
