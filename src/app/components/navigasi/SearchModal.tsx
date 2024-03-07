@@ -25,6 +25,10 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       deskripsi: "To write or note down a list of tasks.",
       link: "/todolist",
     },
+    Calculator: {
+      deskripsi: "Simple calculating tool.",
+      link: "/calculator",
+    },
   };
 
   const modal = useRef<HTMLDivElement>(null);
