@@ -3,19 +3,27 @@
 import React, { useState } from "react";
 
 const Calculator: React.FC = () => {
-  const [ekspresi, mengaturEkspresi] = useState("");
+  const [ekspresi, mengaturEkspresi] = useState("0");
   const [hasil, mengaturHasil] = useState("");
 
   const menanganiKlik = (nilai: string) => {
-    if (nilai === "C") {
-      mengaturEkspresi("");
+    if (ekspresi === "0" && /[0-9]/.test(nilai)) {
+      mengaturEkspresi(nilai);
+    } else if (nilai === "C") {
+      mengaturEkspresi("0");
       mengaturHasil("");
     } else if (nilai === "DEL") {
-      mengaturEkspresi((sebelum) => sebelum.slice(0, -1));
+      mengaturEkspresi((sebelum) => sebelum.slice(0, -1) || "0");
     } else if (nilai === "=") {
       menghitungHasil();
     } else {
-      mengaturEkspresi((sebelum) => sebelum + nilai);
+      if (ekspresi === "0" && nilai === "0") return;
+
+      if (ekspresi !== "0") {
+        if (ekspresi.charAt(ekspresi.length - 1) === "0" && nilai === "0")
+          return;
+        mengaturEkspresi((sebelum) => sebelum + nilai);
+      } else mengaturEkspresi(nilai);
     }
   };
 
@@ -24,9 +32,9 @@ const Calculator: React.FC = () => {
       const evaluasiHasil = ekspresi.replace(/×/g, "*");
       const ekspresiAkhir = evaluasiHasil.replace(/÷/g, "/");
       const hasil = eval(ekspresiAkhir);
-      mengaturHasil(`${hasil}`);
+      mengaturHasil(hasil === Infinity ? "sorry no results found" : `${hasil}`);
     } catch (error) {
-      mengaturHasil("Error");
+      mengaturHasil("sorry no results found");
     }
   };
 
