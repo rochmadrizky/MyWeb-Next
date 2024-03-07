@@ -3,84 +3,88 @@
 import React, { useState } from "react";
 
 const Calculator: React.FC = () => {
-  const [expression, setExpression] = useState("");
-  const [result, setResult] = useState("");
+  const [ekspresi, mengaturEkspresi] = useState("");
+  const [hasil, mengaturHasil] = useState("");
 
-  const handleClick = (value: string) => {
-    if (value === "C") {
-      setExpression("");
-      setResult("");
-    } else if (value === "DEL") {
-      setExpression((prev) => prev.slice(0, -1));
-    } else if (value === "=") {
-      calculateResult();
+  const menanganiKlik = (nilai: string) => {
+    if (nilai === "C") {
+      mengaturEkspresi("");
+      mengaturHasil("");
+    } else if (nilai === "DEL") {
+      mengaturEkspresi((sebelum) => sebelum.slice(0, -1));
+    } else if (nilai === "=") {
+      menghitungHasil();
     } else {
-      setExpression((prev) => prev + value);
+      mengaturEkspresi((sebelum) => sebelum + nilai);
     }
   };
 
-  const calculateResult = () => {
+  const menghitungHasil = () => {
     try {
-      const evaluatedExpression = expression.replace(/×/g, "*");
-      const finalExpression = evaluatedExpression.replace(/÷/g, "/");
-      const result = eval(finalExpression);
-      setResult(`${result}`);
+      const evaluasiHasil = ekspresi.replace(/×/g, "*");
+      const ekspresiAkhir = evaluasiHasil.replace(/÷/g, "/");
+      const hasil = eval(ekspresiAkhir);
+      mengaturHasil(`${hasil}`);
     } catch (error) {
-      setResult("Error");
+      mengaturHasil("Error");
     }
   };
 
   return (
-    <div className="flex flex-col max-w-xs mx-auto my-8">
-      <div className="bg-gray-200 text-xl text-right">{expression}</div>
-      <div className="bg-gray-200 text-xl text-right p-2">{result}</div>
-      <div className="grid grid-cols-3 gap-2">
-        {["7", "8", "9", "÷"].map((value, index) => (
+    <div className="flex flex-col max-w-xs mx-auto">
+      <div className="w-full h-20 border border-black mb-2">
+        <div className=" text-right p-4">
+          <p>{ekspresi}</p>
+          <p>{hasil}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 gap-2">
+        {["7", "8", "9", "÷"].map((nilai, index) => (
           <button
             key={index}
             className="bg-gray-300 text-xl p-4 hover:bg-gray-400"
-            onClick={() => handleClick(value)}
+            onClick={() => menanganiKlik(nilai)}
           >
-            {value}
+            {nilai}
           </button>
         ))}
 
-        {["4", "5", "6", "×"].map((value, index) => (
+        {["4", "5", "6", "×"].map((nilai, index) => (
           <button
             key={index}
             className="bg-gray-300 text-xl p-4 hover:bg-gray-400"
-            onClick={() => handleClick(value)}
+            onClick={() => menanganiKlik(nilai)}
           >
-            {value}
+            {nilai}
           </button>
         ))}
 
-        {["1", "2", "3", "+"].map((value, index) => (
+        {["1", "2", "3", "+"].map((nilai, index) => (
           <button
             key={index}
             className="bg-gray-300 text-xl p-4 hover:bg-gray-400"
-            onClick={() => handleClick(value)}
+            onClick={() => menanganiKlik(nilai)}
           >
-            {value}
+            {nilai}
           </button>
         ))}
 
         <button
           className="bg-gray-300 text-xl p-4 hover:bg-gray-400"
-          onClick={() => handleClick("DEL")}
+          onClick={() => menanganiKlik("DEL")}
         >
           DEL
         </button>
 
-        {["C", "0", "=", "-"].map((value, index) => (
+        {["C", "0", "=", "-"].map((nilai, index) => (
           <button
             key={index}
             className={`bg-${
-              value === "=" ? "green" : "gray"
-            }-300 text-xl p-4 hover:bg-${value === "=" ? "green" : "gray"}-400`}
-            onClick={() => handleClick(value)}
+              nilai === "=" ? "green" : "gray"
+            }-300 text-xl p-4 hover:bg-${nilai === "=" ? "green" : "gray"}-400`}
+            onClick={() => menanganiKlik(nilai)}
           >
-            {value}
+            {nilai}
           </button>
         ))}
       </div>
