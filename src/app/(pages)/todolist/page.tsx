@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TodoList from "@/app/components/todolist/TodoList";
 import LoadingPage from "../LoadingPage";
 
-const page = () => {
+const Page = () => {
   const [loading, mengaturLoading] = useState(true);
   return (
     <div>
@@ -38,4 +38,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

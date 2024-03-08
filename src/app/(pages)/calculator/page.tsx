@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Calculator from "@/app/components/calculator/Calculator";
 import LoadingPage from "../LoadingPage";
 
-const page = () => {
+const Page = () => {
   const [loading, mengaturLoading] = useState(true);
   return (
     <div>
@@ -38,4 +38,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

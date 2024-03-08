@@ -4,7 +4,7 @@ import { useState } from "react";
 import TicTacToe from "@/app/components/games/TicTacToe";
 import LoadingPage from "../LoadingPage";
 
-const page = () => {
+const Page = () => {
   const [loading, mengaturLoading] = useState(true);
   return (
     <div>
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
