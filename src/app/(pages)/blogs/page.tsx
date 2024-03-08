@@ -1,5 +1,5 @@
-import BLogContent from "@/app/components/blogs/BlogContent";
 import React from "react";
+import BLogContent from "@/app/components/blogs/BlogContent";
 
 const Page = () => {
   return (

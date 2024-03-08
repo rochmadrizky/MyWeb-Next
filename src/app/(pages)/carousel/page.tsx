@@ -1,8 +1,8 @@
 "use client";
 
-import IsiCarousel from "@/app/components/carousel/IsiCarousel";
-
 import { useState, useRef } from "react";
+import LoadingPage from "../LoadingPage";
+import IsiCarousel from "@/app/components/carousel/IsiCarousel";
 
 const Page = () => {
   const konten = [
@@ -43,6 +43,7 @@ const Page = () => {
   const [seretDariX, setSeretDariX] = useState(0);
   const [titikAktif, setTitikAktif] = useState(0);
   const penggeser = useRef<HTMLDivElement>(null);
+  const [loading, mengaturLoading] = useState(true);
 
   const sebelumnya = () => {
     const pengechekan =
@@ -112,44 +113,51 @@ const Page = () => {
 
   return (
     <div>
-      <div
-        className="h-[484px] flex items-center justify-center"
-        ref={penggeser}
-        onMouseDown={tekanMouse}
-        onMouseMove={pergerakanMouse}
-        onMouseUp={lepasKlikMouse}
-        onTouchStart={tekanMouse}
-        onTouchMove={pergerakanMouse}
-        onTouchEnd={lepasKlikMouse}
-      >
-        <div
-          className="w-full h-full overflow-hidden bg-center bg-cover duration-500"
-          style={{ backgroundImage: `url(${konten[indeksSaatIni].gambar})` }}
-        >
-          <div className="bg-black bg-opacity-60 w-full h-full flex flex-col items-center justify-center relative">
-            <div className="max-w-4xl mx-auto flex items-center justify-center">
-              <div className="p-4">
-                <div className="text-center">
-                  <h1 className="font-prefix text-2xl text-white">
-                    The carousel slide I made.
-                  </h1>
-                  <p className="font-description text-xl text-white">
-                    Following, Example below.
-                  </p>
+      <LoadingPage memuat={loading} pemuatan={mengaturLoading} />
+      {!loading && (
+        <div>
+          <div
+            className="h-[484px] flex items-center justify-center"
+            ref={penggeser}
+            onMouseDown={tekanMouse}
+            onMouseMove={pergerakanMouse}
+            onMouseUp={lepasKlikMouse}
+            onTouchStart={tekanMouse}
+            onTouchMove={pergerakanMouse}
+            onTouchEnd={lepasKlikMouse}
+          >
+            <div
+              className="w-full h-full overflow-hidden bg-center bg-cover duration-500"
+              style={{
+                backgroundImage: `url(${konten[indeksSaatIni].gambar})`,
+              }}
+            >
+              <div className="bg-black bg-opacity-60 w-full h-full flex flex-col items-center justify-center relative">
+                <div className="max-w-4xl mx-auto flex items-center justify-center">
+                  <div className="p-4">
+                    <div className="text-center">
+                      <h1 className="font-prefix text-2xl text-white">
+                        The carousel slide I made.
+                      </h1>
+                      <p className="font-description text-xl text-white">
+                        Following, Example below.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-center bottom-5 absolute">
+                  {titik}
                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="flex items-center justify-center bottom-5 absolute">
-              {titik}
-            </div>
+          <div className="py-12">
+            <IsiCarousel />
           </div>
         </div>
-      </div>
-
-      <div className="py-12">
-        <IsiCarousel />
-      </div>
+      )}
     </div>
   );
 };

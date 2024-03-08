@@ -21,7 +21,7 @@ const BLogContent = () => {
       gambar: "/gambar/kalkulator.jpeg",
       judul: "Count Quickly",
       deskripsi: "Calculating quickly, very fast, almost like lightning.",
-      link: "/carousel",
+      link: "/calculator",
     },
     {
       gambar: "/gambar/tictac.jpeg",
