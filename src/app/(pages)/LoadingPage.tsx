@@ -1,3 +1,4 @@
+import { IconLoader2 } from "@tabler/icons-react";
 import React, { useEffect } from "react";
 
 interface LoadingPageProps {
@@ -9,7 +10,7 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ memuat, pemuatan }) => {
   useEffect(() => {
     const batasWaktuMemuat = setTimeout(() => {
       pemuatan(false);
-    }, 200);
+    }, 400);
 
     return () => clearTimeout(batasWaktuMemuat);
   }, [pemuatan]);
@@ -17,9 +18,13 @@ const LoadingPage: React.FC<LoadingPageProps> = ({ memuat, pemuatan }) => {
   return (
     <>
       {memuat && (
-        <div className="min-h-screen flex items-center justify-center">
-          <div>
-            <p>Loading...</p>
+        <div className="min-h-screen flex flex-col items-center justify-center">
+          <div className="p-2 text-center">
+            <h1 className="font-prefix">Loading</h1>
+          </div>
+
+          <div className="animate-spin p-1">
+            <IconLoader2 className=" w-12 h-12" />
           </div>
         </div>
       )}
