@@ -127,7 +127,7 @@ const Calculator: React.FC = () => {
           <p className="font-description">
             I designed and made it with a simple appearance.
           </p>
-          <p className="font-description">You can also try it..</p>
+          <p className="font-description">You can also try it.</p>
         </div>
       </div>
     </div>
