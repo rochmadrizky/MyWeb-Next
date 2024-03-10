@@ -1,7 +1,11 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import { useState } from "react";
 
 const BLogContent = () => {
+  const [halamanSaatIni, mengaturHalamanSaatIni] = useState(1);
+  const itemPerHalaman = 4;
+
   const konten = [
     {
       gambar: "/gambar/carousel.jpeg",
@@ -38,31 +42,58 @@ const BLogContent = () => {
     },
   ];
 
+  const indexItemTerakhir = halamanSaatIni * itemPerHalaman;
+  const indexItemPertama = indexItemTerakhir - itemPerHalaman;
+  const itemSaatIni = konten.slice(indexItemPertama, indexItemTerakhir);
+
+  const nomorHalaman = (angkaPerHalaman: React.SetStateAction<number>) =>
+    mengaturHalamanSaatIni(angkaPerHalaman);
+
   return (
     <div className="max-w-7xl mx-auto px-4 flex items-center justify-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {konten.map((isi, urutan) => (
-          <Link
-            href={isi.link}
-            key={urutan}
-            className="bg-gray-100 border-t-2 border-b-2 border-blue-500 rounded-lg shadow-md overflow-hidden"
-          >
-            <div className="flex items-center justify-center ">
-              <div className="flex flex-col items-center justify-center">
-                <img
-                  src={isi.gambar}
-                  alt={isi.judul}
-                  className="w-full h-44 transform hover:scale-110 hover:rotate-6 duration-200 object-fill"
-                />
+      <div className="flex flex-col items-center justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {itemSaatIni.map((isi, urutan) => (
+            <Link
+              href={isi.link}
+              key={urutan}
+              className="bg-gray-100 border-t-2 border-b-2 border-blue-500 rounded-lg shadow-md overflow-hidden"
+            >
+              <div className="flex items-center justify-center ">
+                <div className="flex flex-col items-center justify-center">
+                  <img
+                    src={isi.gambar}
+                    alt={isi.judul}
+                    className="w-full h-44 transform hover:scale-110 hover:rotate-6 duration-200 object-fill"
+                  />
 
-                <div className="text-center p-2">
-                  <h1 className="font-prefix text-lg">{isi.judul}</h1>
-                  <p className="font-description p-1">{isi.deskripsi}</p>
+                  <div className="text-center p-2">
+                    <h1 className="font-prefix text-lg">{isi.judul}</h1>
+                    <p className="font-description p-1">{isi.deskripsi}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          {Array.from({
+            length: Math.ceil(konten.length / itemPerHalaman),
+          }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => nomorHalaman(index + 1)}
+              className={`mx-1 px-3 py-1 rounded-lg ${
+                halamanSaatIni === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
