@@ -29,6 +29,13 @@ const BLogContent = () => {
       deskripsi: "Create an old game with a simple appearance, you can try it.",
       link: "/games",
     },
+    {
+      gambar: "/gambar/rating.jpeg",
+      judul: "Ratings or Comments",
+      deskripsi:
+        "To give an ratings, or express your satisfaction or expression.",
+      link: "/rating",
+    },
   ];
 
   return (
