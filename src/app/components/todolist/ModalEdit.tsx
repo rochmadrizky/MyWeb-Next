@@ -99,7 +99,7 @@ const ModalEdit: React.FC<ModalEditProps> = ({
           <h2 className="text-lg font-title mb-2 text-center">Edit Task</h2>
           <input
             ref={input}
-            className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2 bg-gray-200"
+            className="w-full px-3 py-2 rounded-lg focus:outline-blue-500 focus:right-2 bg-gray-200 font-description"
             name="edit"
             placeholder="Change items here"
             type="text"
