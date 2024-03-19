@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import LoadingPage from "../LoadingPage";
 import Login from "@/app/components/log/Login";
 
-const page = () => {
+const Page = () => {
   const [loading, mengaturLoading] = useState(true);
   return (
     <div>
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
