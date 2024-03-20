@@ -19,9 +19,11 @@ const Page = () => {
               <div className="p-4">
                 <div className="text-center">
                   <h1 className="font-prefix text-2xl">
-                    Display the rating that I made.
+                    Login feature display.
                   </h1>
-                  <p className="font-description text-xl">Example below.</p>
+                  <p className="font-description text-xl">
+                    You can try it, Example below.
+                  </p>
                 </div>
               </div>
             </div>
