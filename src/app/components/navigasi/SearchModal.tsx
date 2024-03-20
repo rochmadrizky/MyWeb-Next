@@ -33,6 +33,10 @@ const SearchModal: React.FC<{ membuka: boolean; menutup: () => void }> = ({
       deskripsi: "Express your assessment.",
       link: "/rating",
     },
+    Login: {
+      deskripsi: "Login feature display.",
+      link: "/login",
+    },
   };
 
   const modal = useRef<HTMLDivElement>(null);
