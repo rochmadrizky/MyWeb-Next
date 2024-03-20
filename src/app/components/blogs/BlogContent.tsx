@@ -40,6 +40,13 @@ const BLogContent = () => {
         "To give an ratings, or express your satisfaction or expression.",
       link: "/rating",
     },
+    {
+      gambar: "/gambar/login.jpeg",
+      judul: "Login Feature",
+      deskripsi:
+        "The display of the login feature that I made, is quite simple.",
+      link: "/login",
+    },
   ];
 
   const indexItemTerakhir = halamanSaatIni * itemPerHalaman;
