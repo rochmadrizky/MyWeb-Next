@@ -2,37 +2,37 @@ import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useState } from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [email, mengaturEmail] = useState("");
+  const [password, mengaturPassword] = useState("");
+  const [tampilkanPassword, mengaturTampilkanPassword] = useState(false);
 
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [loginBerhasil, mengaturLoginBerhasil] = useState(false);
+  const [pesanError, mengaturPesanError] = useState("");
 
-  const handleLogin = () => {
+  const klikLogin = () => {
     if (email === "try@example.com" && password === "trylogin") {
-      setLoginSuccess(true);
-      setErrorMessage("");
+      mengaturLoginBerhasil(true);
+      mengaturPesanError("");
     } else {
-      setLoginSuccess(false);
+      mengaturLoginBerhasil(false);
       if (email !== "try@example.com" && password !== "trylogin") {
-        setErrorMessage("Email dan Password salah, harap cek kembali");
+        mengaturPesanError("Wrong email or password.");
       } else if (email !== "try@example.com") {
-        setErrorMessage("Email salah");
+        mengaturPesanError("Wrong email.");
       } else {
-        setErrorMessage("Password salah");
+        mengaturPesanError("Wrong password.");
       }
     }
   };
 
-  const handleLogout = () => {
-    setLoginSuccess(false);
-    setEmail(""); // Reset nilai email ke string kosong
-    setPassword(""); // Reset nilai password ke string kosong
+  const klikLogout = () => {
+    mengaturLoginBerhasil(false);
+    mengaturEmail("");
+    mengaturPassword("");
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const klikTampilkanPassword = () => {
+    mengaturTampilkanPassword(!tampilkanPassword);
   };
 
   return (
@@ -56,13 +56,15 @@ const Login = () => {
           <div className="w-80 border-black border rounded-2xl p-4">
             <div className="p-4">
               <h2 className="text-center text-3xl font-title text-gray-900">
-                {loginSuccess ? "Login Berhasil" : "Sign in to your account"}
+                {loginBerhasil
+                  ? "Login Successfully"
+                  : "Sign in to your account"}
               </h2>
             </div>
 
-            {loginSuccess ? (
+            {loginBerhasil ? (
               <button
-                onClick={handleLogout}
+                onClick={klikLogout}
                 className="w-full flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white bg-red-500 font-prefix"
               >
                 Logout
@@ -85,8 +87,8 @@ const Login = () => {
                     placeholder="Email address"
                     value={email}
                     onChange={(e) => {
-                      setEmail(e.target.value);
-                      setErrorMessage("");
+                      mengaturEmail(e.target.value);
+                      mengaturPesanError("");
                     }}
                   />
                 </div>
@@ -98,32 +100,32 @@ const Login = () => {
                   <input
                     id="password"
                     name="password"
-                    type={showPassword ? "text" : "password"}
+                    type={tampilkanPassword ? "text" : "password"}
                     autoComplete="current-password"
                     required
                     className="relative block w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 pr-10 bg-gray-200 font-prefix"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => mengaturPassword(e.target.value)}
                   />
                   <button
                     type="button"
                     className="absolute z-10 inset-y-0 right-0 pr-3 flex items-center"
-                    onClick={togglePasswordVisibility}
+                    onClick={klikTampilkanPassword}
                   >
-                    {showPassword ? <IconEye /> : <IconEyeOff />}
+                    {tampilkanPassword ? <IconEye /> : <IconEyeOff />}
                   </button>
                 </div>
 
-                {errorMessage && (
-                  <div className="text-red-500 text-sm">{errorMessage}</div>
+                {pesanError && (
+                  <div className="text-red-500 text-sm">{pesanError}</div>
                 )}
 
                 <div>
                   <button
                     type="submit"
                     className="w-full flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white bg-blue-500 font-prefix"
-                    onClick={handleLogin}
+                    onClick={klikLogin}
                   >
                     Sign in
                   </button>
