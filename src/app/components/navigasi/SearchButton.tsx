@@ -19,6 +19,7 @@ const SearchButton: React.FC = () => {
   };
 
   const shortcutMembukaModal = (klik: KeyboardEvent) => {
+    klik.preventDefault();
     if ((klik.metaKey || klik.ctrlKey) && klik.key === "k") {
       if (modalTerbuka) {
         menutupModal();

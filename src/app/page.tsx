@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <div>
       <div
-        className="h-[484px] flex items-center justify-center"
+        className="h-[420px] flex items-center justify-center"
         style={{ backgroundImage: `url('/background/topography.svg')` }}
       >
         <HomeContent />
