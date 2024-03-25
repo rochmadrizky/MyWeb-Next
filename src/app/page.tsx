@@ -1,6 +1,7 @@
 import React from "react";
 import HomeContent from "./components/home/HomeContent";
 import Content from "./components/home/Content";
+import ProgressBars from "./components/progres/Progres";
 
 const Page = () => {
   return (

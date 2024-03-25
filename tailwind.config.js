@@ -10,10 +10,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        prefix : "Poppins, sans-serif",
-        title : "Nunito, sans-serif",
-        description : "Catamaran, sans-serif",
-        opsi: "Mrs Saint Delafield"
+        'prefix' : ["Poppins, sans-serif"],
+        'title' : ["Nunito, sans-serif"],
+        'description' : ["Catamaran, sans-serif"],
+        'opsi': ["Mrs Saint Delafield"]
       }
     },
   },
